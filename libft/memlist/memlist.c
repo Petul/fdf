@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/14 10:49:51 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/14 10:49:54 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/15 12:44:09 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_list	**get_memlist(void)
  * @brief Releases all memory tracked by the memlist and all memory used by
  * the memlist itself.
  */
-void	release_all(void)
+void	memlist_release_all(void)
 {
 	t_list	**memlist;
 
