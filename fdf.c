@@ -70,6 +70,14 @@ int	fdf(t_map *map)
 
 	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 	draw_map(map, img);
+	t_point start, end;
+	start.x = 0;
+	start.y = 0;
+	start.color = 0;
+	end.x = 500;
+	end.y = 500;
+
+	draw_line(start, end, img);
 	//draw_square(200, 100, 10, img);
 
 	// Register a hook and pass mlx as an optional param.

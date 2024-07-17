@@ -13,8 +13,9 @@
 NAME := fdf
 CC := cc
 #CFLAGS := -Wall -Wextra -Werror
-CFLAGS := -Wall -Wextra
+CFLAGS := -Wall -Wextra -g
 CFILES :=	fdf.c \
+			draw_line.c \
 			error.c \
 			main.c \
 			read_file.c \
