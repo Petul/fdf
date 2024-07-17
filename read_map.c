@@ -120,7 +120,7 @@ static void	parse_rows_to_map(t_map *map, t_list **rows)
 		t_i = 0;
 		toks = ft_split(cur->content, ' ');
 		iter_2darr(toks, &memlist_add);
-		while (toks[t_i])
+		while (toks[t_i] && toks[t_i][0] != '\n')
 		{
 			parse_token(map->vertices + v_i, toks[t_i]);
 			v_i++;
