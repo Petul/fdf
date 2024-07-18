@@ -6,18 +6,21 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/07/16 15:28:31 by pleander         ###   ########.fr        #
+#    Updated: 2024/07/18 19:40:38 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := fdf
 CC := cc
 #CFLAGS := -Wall -Wextra -Werror
-CFLAGS := -Wall -Wextra -g
+CFLAGS := -Wall -Wextra -g -fsanitize=address
 CFILES :=	fdf.c \
 			draw_line.c \
+			draw_map.c \
 			error.c \
 			main.c \
+			matrix.c \
+			projection.c \
 			read_file.c \
 			read_map.c \
 			utils.c
@@ -31,7 +34,7 @@ OBJECTS := $(CFILES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(LIBMLX42) $(LIBFT) $(OBJECTS)
-	$(CC) $(OBJECTS) $(LIBFT) $(LIBMLX42) -lglfw -o $(NAME)
+	$(CC) $(OBJECTS) $(LIBFT) $(LIBMLX42) -lm -lglfw -o $(NAME)
 
 $(LIBFT):
 	make -C libft

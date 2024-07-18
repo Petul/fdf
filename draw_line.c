@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bresenham.c                                        :+:      :+:    :+:   */
+/*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/17 11:54:48 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/18 16:15:57 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h> //
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
-#include <stdio.h>
 
 static int abs(int n)
 {
@@ -21,7 +21,7 @@ static int abs(int n)
 	return (n);
 }
 
-static void	plot_low(t_point start, t_point end, mlx_image_t *img)
+static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 {
 	int	dx;
 	int	dy;
@@ -37,7 +37,7 @@ static void	plot_low(t_point start, t_point end, mlx_image_t *img)
 		dy = -dy;
 	}
 	d = (2 * dy) - dx;
-	while (start.x <= end.x)
+	while (start.x <= end.x && start.y >= 0 && start.y <= HEIGHT && start.x >= 0 && start.x <= WIDTH)
 	{
 		mlx_put_pixel(img, start.x, start.y, start.color);
 		if (d > 0)
@@ -45,29 +45,44 @@ static void	plot_low(t_point start, t_point end, mlx_image_t *img)
 			start.y = start.y + y_i;
 			d = d + (2 * (dy - dx));
 		}
-		d = d + 2 * dy;
+		else
+			d = d + (2 * dy);
 		start.x++;
 	}
 }
 
-static void	swap(int *a, int *b)
-{
-	int tmp;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
+{
+	int	dx;
+	int	dy;
+	int	d;
+	int	x_i;
+
+	dx = end.x - start.x;
+	dy = end.y - start.y;
+	x_i = 1;
+	if (dx < 0)
+	{
+		x_i = -1;
+		dx = -dx;
+	}
+	d = (2 * dx) - dy;
+	while (start.y <= end.y && start.y >= 0 && start.y <= HEIGHT && start.x >= 0 && start.x <= WIDTH)
+	{
+		mlx_put_pixel(img, start.x, start.y, start.color);
+		if (d > 0)
+		{
+			start.x = start.x + x_i;
+			d = d + (2 * (dx - dy));
+		}
+		else
+			d = d + (2 * dx);
+		start.y++;
+	}
 }
 
-static void	plot_high(t_point start, t_point end, mlx_image_t *img)
-{
-	swap(&start.x, &start.y);
-	swap(&end.x, &end.y);
-	plot_low(start, end, img);
-
-}
-
-void	draw_line(t_point start, t_point end, mlx_image_t *img)
+void	draw_line(t_point2d start, t_point2d end, mlx_image_t *img)
 {
 	if (abs(end.y - start.y) < abs(end.x - start.x))
 	{

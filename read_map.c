@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/16 13:51:00 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/18 13:55:54 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,17 @@ static t_map	*init_map(t_list **rows)
 		cur = cur->next;
 	}
 	map->vertices = reserve(map->columns * map->rows * sizeof(t_ver));
+	map->sc = creserve(map->rows, sizeof(t_point2d *));
+	if (!map->sc)
+		error_exit(ERR_STR);
+	size_t i = 0;
+	while (i < map->rows)
+	{
+		map->sc[i] = creserve(map->columns, sizeof(t_point2d));
+		if (!map->sc[i])
+			error_exit(ERR_STR);
+		i++;
+	}
 	return (map);
 }
 

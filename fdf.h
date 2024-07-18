@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/17 12:40:49 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/18 19:16:29 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,23 @@
 
 # define DEFAULT_COLOR 0x00
 # define ERR_STR "Error"
+# define WIDTH 512
+# define HEIGHT 512
 
-typedef struct	s_point
+typedef struct	s_point2d
 {
 	int	x;
 	int	y;
 	uint32_t color;
-}	t_point;
+}	t_point2d;
+
+typedef struct	s_point3d
+{
+	int	x;
+	int	y;
+	int	z;
+	uint32_t color;
+}	t_point3d;
 
 typedef struct	s_ver
 {
@@ -35,16 +45,23 @@ typedef struct	s_ver
 
 typedef struct	s_map
 {
-	size_t	rows;
-	size_t	columns;
-	t_ver	*vertices;
+	size_t		rows;
+	size_t		columns;
+	t_ver		*vertices;
+	t_point2d	**sc;
 }	t_map;
 
-int		fdf(t_map *map);
-t_map 	*read_map(char *path);
-void	error_exit(char *err_msg);
-void	iter_2darr(char **arr, void (fn)(void *));
-t_list	**read_rows(int fd);
-void	draw_line(t_point start, t_point end, mlx_image_t *img);
+int			fdf(t_map *map);
+t_map		*read_map(char *path);
+void		error_exit(char *err_msg);
+void		iter_2darr(char **arr, void (fn)(void *));
+t_list		**read_rows(int fd);
+void		draw_line(t_point2d start, t_point2d end, mlx_image_t *img);
+t_point3d	get_3d_point(size_t col, size_t row, t_map *map, size_t scale);
+void		calculate_projection(t_map *map);
+void		draw_map(t_map *map, mlx_image_t *img);
+void	rotate_x(int deg, t_point3d *p);
+void	rotate_y(int deg, t_point3d *p);
+void	rotate_z(int deg, t_point3d *p);
 
 #endif
