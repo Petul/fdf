@@ -23,7 +23,7 @@ t_point3d	get_3d_point(size_t col, size_t row, t_map *map, size_t scale)
 	wc.x = col * scale;
 	wc.y = row * scale;
 	ind = row * map->columns + col;
-	wc.z = map->vertices[ind].height;
+	wc.z = map->vertices[ind].height * scale;
 	wc.color = map->vertices[ind].color;
 	return (wc);
 }

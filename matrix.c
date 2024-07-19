@@ -33,9 +33,9 @@ void	rotate_x(int deg, t_point3d *p)
 	float	rad;
 
 	rad = 0.01745 * deg;
-	ft_bzero(matrix[0], 3);
-	ft_bzero(matrix[1], 3);
-	ft_bzero(matrix[2], 3);
+	ft_bzero(matrix[0], sizeof(float) * 3);
+	ft_bzero(matrix[1], sizeof(float) * 3);
+	ft_bzero(matrix[2], sizeof(float) * 3);
 	matrix[0][0] = 1;
 	matrix[1][1] = cos(rad);
 	matrix[1][2] = -sin(rad);
@@ -50,9 +50,9 @@ void	rotate_y(int deg, t_point3d *p)
 	float	rad;
 
 	rad = 0.01745 * deg;
-	ft_bzero(matrix[0], 3);
-	ft_bzero(matrix[1], 3);
-	ft_bzero(matrix[2], 3);
+	ft_bzero(matrix[0], sizeof(float) * 3);
+	ft_bzero(matrix[1], sizeof(float) * 3);
+	ft_bzero(matrix[2], sizeof(float) * 3);
 	matrix[0][0] = cos(rad);
 	matrix[0][2] = sin(rad);
 	matrix[1][1] = 1;
@@ -67,9 +67,9 @@ void	rotate_z(int deg, t_point3d *p)
 	float	rad;
 
 	rad = 0.01745 * deg;
-	ft_bzero(matrix[0], 3);
-	ft_bzero(matrix[1], 3);
-	ft_bzero(matrix[2], 3);
+	ft_bzero(matrix[0], sizeof(float) * 3);
+	ft_bzero(matrix[1], sizeof(float) * 3);
+	ft_bzero(matrix[2], sizeof(float) * 3);
 	matrix[0][0] = cos(rad);
 	matrix[0][1] = -sin(rad);
 	matrix[1][0] = sin(rad);

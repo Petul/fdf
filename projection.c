@@ -22,11 +22,10 @@
 
 static void	get_projection(t_point3d wc, t_point2d *sc)
 {
-	rotate_z(10, &wc);
+	rotate_z(45, &wc);
 	rotate_x(35, &wc);
-	sc->x = wc.x + 100;
-	sc->y = wc.y + 100;
-	//sc->x = (size_t)floor((wc.x - wc.y + wc.z) * 0.577);
+	sc->x = wc.x + 175;
+	sc->y = wc.y + 90;
 }
 
 void	calculate_projection(t_map *map)
@@ -35,7 +34,7 @@ void	calculate_projection(t_map *map)
 	size_t	col;
 	size_t	scale;
 
-	scale = WIDTH / (map->columns + 10);
+	scale = WIDTH / (map->columns + 1);
 	
 
 	row = 0;
