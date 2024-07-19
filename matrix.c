@@ -15,6 +15,12 @@
 #include "libft/include/libft.h"
 
 
+/**
+ * @brief Multiplies a 3x3 matrix with a 3x1 column vector
+ *
+ * @param m Matric
+ * @param p Column vector (Point)
+ */
 static void mat_mul(float m[3][3], t_point3d *p)
 {
 	t_point3d res;
@@ -27,6 +33,12 @@ static void mat_mul(float m[3][3], t_point3d *p)
 	p->z = res.z;
 }
 
+/**
+ * @brief Rotates the 3D point about the x-axis
+ *
+ * @param deg Degrees to roatate
+ * @param p Point
+ */
 void	rotate_x(int deg, t_point3d *p)
 {
 	float	matrix[3][3];
@@ -44,6 +56,12 @@ void	rotate_x(int deg, t_point3d *p)
 	mat_mul(matrix, p);
 }
 
+/**
+ * @brief Rotates the 3D point about the y-axis
+ *
+ * @param deg Degrees to roatate
+ * @param p Point
+ */
 void	rotate_y(int deg, t_point3d *p)
 {
 	float		matrix[3][3];
@@ -61,6 +79,12 @@ void	rotate_y(int deg, t_point3d *p)
 	mat_mul(matrix, p);
 }
 
+/**
+ * @brief Rotates the 3D point about the z-axis
+ *
+ * @param deg Degrees to roatate
+ * @param p Point
+ */
 void	rotate_z(int deg, t_point3d *p)
 {
 	float		matrix[3][3];
