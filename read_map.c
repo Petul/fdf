@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/18 13:55:54 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/19 14:05:30 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,7 @@ t_map	*read_map(char *path)
 	rows = read_rows(fd);
 	map = init_map(rows);
 	parse_rows_to_map(map, rows);
+	calculate_auto_scale(map);
+	map->z_scale = map->xy_scale;
 	return (map);
 }

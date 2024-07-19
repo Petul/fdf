@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 11:29:43 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/18 19:40:15 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/19 13:47:11 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@ void	calculate_projection(t_map *map)
 {
 	size_t	row;
 	size_t	col;
-	size_t	scale;
-
-	scale = WIDTH / (map->columns + 1);
-	
 
 	row = 0;
 	while (row < map->rows)
@@ -43,7 +39,7 @@ void	calculate_projection(t_map *map)
 		col = 0;
 		while (col < map->columns)
 		{
-			get_projection(get_3d_point(col, row, map, scale), &map->sc[row][col]);
+			get_projection(get_3d_point(col, row, map), &map->sc[row][col]);
 			col++;
 		}
 		row++;

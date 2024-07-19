@@ -59,20 +59,6 @@ static void draw_points(t_map *map, mlx_image_t *img)
 	}
 }
 
-static void quick_draw_line(size_t s_x, size_t s_y, size_t e_x, size_t e_y, mlx_image_t *img)
-{
-	t_point2d s;
-	t_point2d e;
-
-	s.x = s_x;
-	s.y = s_y;
-	s.color = 0;
-	e.x = e_x;
-	e.y = e_y;
-	e.color = 0;
-	draw_line(s, e, img);
-
-}
 
 // Print the window width and height.
 int	fdf(t_map *map)
@@ -86,25 +72,10 @@ int	fdf(t_map *map)
 	mlx_image_t* img = mlx_new_image(mlx, WIDTH, HEIGHT);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		error_exit((char *)mlx_strerror(mlx_errno));
-	/* Do stuff */
 
 	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
 	calculate_projection(map);
 	draw_map(map, img);
-	//draw_points(map, img);
-	// draw_square(100, 10, 4, 0, img);
-	// draw_square(50, 150, 4, 0, img);
-	// quick_draw_line(100, 10, 50, 150, img);
-	//
-	// draw_square(10, 10, 4, 0, img);
-	// draw_square(500, 100, 4, 0, img);
-	// quick_draw_line(10, 10, 500, 100, img);
-	// quick_draw_line(10, 50, 100, 100, img);
-	// quick_draw_line(0, 100, 100, 100, img);
-	// quick_draw_line(512, 200, 0, 200, img);
-	// quick_draw_line(201, 0, 0, 200, img);
-	// quick_draw_line(510, 10, 10, 200, img);
-	
 
 	// Register a hook and pass mlx as an optional param.
 	// NOTE: Do this before calling mlx_loop!
