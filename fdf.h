@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/19 13:58:38 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/19 20:56:21 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct	s_map
 	size_t		columns;
 	size_t		xy_scale;
 	size_t		z_scale;
+	int			x_translate;
+	int			y_translate;
 	t_ver		*vertices;
 	t_point2d	**sc;
 }	t_map;
