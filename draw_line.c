@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/18 16:15:57 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/22 16:36:07 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 		dy = -dy;
 	}
 	d = (2 * dy) - dx;
-	while (start.x <= end.x && start.y >= 0 && start.y <= HEIGHT && start.x >= 0 && start.x <= WIDTH)
+	while (start.x <= end.x && start.y >= 0 && (uint32_t)start.y <= img->height && start.x >= 0 && (uint32_t)start.x <= img->width)
 	{
 		mlx_put_pixel(img, start.x, start.y, start.color);
 		if (d > 0)
@@ -68,7 +68,7 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 		dx = -dx;
 	}
 	d = (2 * dx) - dy;
-	while (start.y <= end.y && start.y >= 0 && start.y <= HEIGHT && start.x >= 0 && start.x <= WIDTH)
+	while (start.y <= end.y && start.y >= 0 && (uint32_t)start.y <= img->height && start.x >= 0 && (uint32_t)start.x <= img->width)
 	{
 		mlx_put_pixel(img, start.x, start.y, start.color);
 		if (d > 0)

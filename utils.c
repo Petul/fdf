@@ -6,12 +6,12 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:21:30 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/19 20:53:16 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:29:18 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
-#include "libft/include/ft_printf.h"
+#include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map)
@@ -48,18 +48,19 @@ void	iter_2darr(char **arr, void (fn)(void *))
  *
  * @param map The map
  */
-void	calculate_auto_scale(t_map *map)
+void	calculate_auto_scale(t_context *c)
 {
 	size_t	diag_dist;
 	size_t	horizontal;
 	size_t	vertical;
 	
-	diag_dist = sqrt((map->columns * map->columns) + (map->rows * map->rows));
-	horizontal = (WIDTH - PADDING) / diag_dist;
-	vertical = (HEIGHT - PADDING) / diag_dist;
+	diag_dist = sqrt((c->map->columns * c->map->columns) + (c->map->rows * c->map->rows));
+	horizontal = (c->mlx->width - PADDING) / diag_dist;
+	vertical = (c->mlx->height - PADDING) / diag_dist;
 	if (horizontal < vertical)
-		map->xy_scale = horizontal;
+		c->map->xy_scale = horizontal;
 	else
-		map->xy_scale = vertical;
+		c->map->xy_scale = vertical;
+	c->map->z_scale = c->map->xy_scale;
 	return ;
 }

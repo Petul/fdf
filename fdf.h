@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/19 20:56:21 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:30:42 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,18 +56,26 @@ typedef struct	s_map
 	t_point2d	**sc;
 }	t_map;
 
-int			fdf(t_map *map);
+typedef struct s_context
+{
+	mlx_t		*mlx;
+	mlx_image_t	*img;
+	t_map		*map;
+	
+}	t_context;
+
+int			fdf(t_context *context);
 t_map		*read_map(char *path);
 void		error_exit(char *err_msg);
 void		iter_2darr(char **arr, void (fn)(void *));
 t_list		**read_rows(int fd);
 void		draw_line(t_point2d start, t_point2d end, mlx_image_t *img);
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map);
-void		calculate_projection(t_map *map);
-void		draw_map(t_map *map, mlx_image_t *img);
+void	calculate_projection(t_map *map);
+void draw_map(mlx_t *mlx, t_map *map, mlx_image_t *img);
 void		rotate_x(int deg, t_point3d *p);
 void		rotate_y(int deg, t_point3d *p);
 void		rotate_z(int deg, t_point3d *p);
-void		calculate_auto_scale(t_map *map);
+void	calculate_auto_scale(t_context *c);
 
 #endif

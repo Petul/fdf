@@ -6,25 +6,24 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:08:31 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/20 20:40:14 by pleander         ###   ########.fr       */
+/*   Updated: 2024/07/22 14:11:44 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/include/libft.h"
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
-#include <stdio.h>
 
-static void	calculate_translation(t_map *map)
+static void	calculate_translation(mlx_t *mlx, t_map *map)
 {
 	int	x[2];
 	int	y[2];
 	size_t	col;
 	size_t	row;
 
-	x[0] = WIDTH;
+	x[0] = mlx->width;
 	x[1] = 0;
-	y[0] = HEIGHT;
+	y[0] = mlx->height;
 	y[1] = 0;
 	row = 0;
 	while (row < map->rows)
@@ -44,8 +43,8 @@ static void	calculate_translation(t_map *map)
 		}
 		row++;
 	}
-	map->x_translate = ((WIDTH - (x[1] - x[0])) / 2) - x[0];
-	map->y_translate = ((HEIGHT - (y[1] - y[0])) / 2) - y[0];
+	map->x_translate = ((mlx->width - (x[1] - x[0])) / 2) - x[0];
+	map->y_translate = ((mlx->height - (y[1] - y[0])) / 2) - y[0];
 }
 
 static void	apply_translation(t_map *map)
@@ -67,13 +66,13 @@ static void	apply_translation(t_map *map)
 	}
 }
 
-void draw_map(t_map *map, mlx_image_t *img)
+void draw_map(mlx_t *mlx, t_map *map, mlx_image_t *img)
 {
 	size_t	i;
 	size_t	j;
 	int color;
 	
-	calculate_translation(map);
+	calculate_translation(mlx, map);
 	apply_translation(map);
 	i = 0;
 	while (i < map->rows)
