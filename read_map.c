@@ -6,10 +6,11 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/22 14:18:03 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:40:43 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h> //
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -31,8 +32,10 @@ static size_t	calculate_columns(char *buf)
 
 	count = 0;
 	i = 0;
-	while (buf[i])
+	while (buf[i] && buf[i] != '\n')
 	{
+		if (i == 0 && ft_isdigit(buf[i]))
+			count++;
 		if (ft_isspace(buf[i]) && !ft_isspace(buf[i + 1]))
 			count++;
 		i++;
