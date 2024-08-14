@@ -6,11 +6,12 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:21:30 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/22 14:29:18 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:36:22 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
+#include "libft/include/libft.h"
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 
@@ -63,4 +64,18 @@ void	calculate_auto_scale(t_context *c)
 		c->map->xy_scale = vertical;
 	c->map->z_scale = c->map->xy_scale;
 	return ;
+}
+
+/**
+ * @brief Transforms all characters in a string to uppercase
+ *
+ * @param str 
+ */
+void	upper(char *str)
+{
+	while (*str)
+	{
+		*str = ft_toupper(*str);
+		str++;
+	}
 }

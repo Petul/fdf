@@ -6,11 +6,10 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/22 16:36:07 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:21:55 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h> //
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 

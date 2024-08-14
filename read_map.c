@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/13 17:40:43 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:21:12 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static t_map	*init_map(t_list **rows)
 {
 	t_map	*map;
 	t_list	*cur;
+	size_t i;
 
 	map = reserve(sizeof(t_map));
 	if (!map)
@@ -70,7 +71,7 @@ static t_map	*init_map(t_list **rows)
 	map->sc = creserve(map->rows, sizeof(t_point2d *));
 	if (!map->sc)
 		error_exit(ERR_STR);
-	size_t i = 0;
+	i = 0;
 	while (i < map->rows)
 	{
 		map->sc[i] = creserve(map->columns, sizeof(t_point2d));
@@ -98,12 +99,13 @@ static void	parse_token(t_ver *ver, char *tok)
 	{
 		height = ft_substr(tok, 0, delim - tok);
 		memlist_add(height);
-		color = ft_substr(tok, delim - tok, ft_strlen(tok) - (delim - tok));
+		color = ft_substr(tok, delim - tok + 1, ft_strlen(tok) - (delim - tok));
+		upper(color);
 		memlist_add(color);
 		if (!height || !color)
 			error_exit(ERR_STR);
 		ver->height = ft_atoi(height); // Check overflow?
-		ver->color = DEFAULT_COLOR; // Parse hexadecimal color
+		ver->color = (ft_atoi_base(color + 2, HEX_BASE) << 8) | (0x000000FF);
 		release(height);
 		release(color);
 	}

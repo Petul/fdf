@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/22 14:30:42 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:36:41 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@
 # include "mlx42/include/MLX42/MLX42.h"
 # include "libft/include/libft.h"
 
-# define DEFAULT_COLOR 0x00
-# define ERR_STR "Error"
 # define WIDTH 512
 # define HEIGHT 512
 # define PADDING 10
+//# define DEFAULT_COLOR 0x00000000
+# define DEFAULT_COLOR 0xFFFFFFFF
+# define HEX_BASE "0123456789ABCDEF"
+# define ERR_STR "Error"
 
 typedef struct	s_point2d
 {
@@ -77,5 +79,6 @@ void		rotate_x(int deg, t_point3d *p);
 void		rotate_y(int deg, t_point3d *p);
 void		rotate_z(int deg, t_point3d *p);
 void	calculate_auto_scale(t_context *c);
+void	upper(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:13:49 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/22 16:31:34 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/14 12:42:16 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void handle_resize(int32_t width, int32_t height, void *param)
 	context = (t_context *)param;
 	mlx_resize_image(context->img, width, height);
 	calculate_auto_scale(context);
-	ft_memset(context->img->pixels, 255, context->img->width * context->img->height * sizeof(int32_t));
+	ft_memset(context->img->pixels, 0, context->img->width * context->img->height * sizeof(int32_t));
 	calculate_projection(context->map);
 	draw_map(context->mlx, context->map, context->img);
 }
@@ -85,7 +85,7 @@ int	fdf(t_context *context)
 		error_exit((char *)mlx_strerror(mlx_errno));
 	context->img = img;
 
-	ft_memset(img->pixels, 255, img->width * img->height * sizeof(int32_t));
+	ft_memset(img->pixels, 0, img->width * img->height * sizeof(int32_t));
 	calculate_projection(context->map);
 	draw_map(mlx, context->map, img);
 
