@@ -13,19 +13,10 @@
 #include "math.h"
 #include "fdf.h"
 
-// static void	get_projection(t_point3d wc, t_point2d *sc)
-// {
-// 	sc->y = (size_t)floor((wc.x - wc.z) * 1.414);
-// 	sc->x = (size_t)floor((wc.x + 2 * wc.y + wc.z) * 0.408);
-// 	//sc->x = (size_t)floor((wc.x - wc.y + wc.z) * 0.577);
-// }
-
 static void	get_projection(t_point3d wc, t_point2d *sc)
 {
-	// rotate_z(45, &wc);
-	// rotate_y(35, &wc);
-	rotate_x(45, &wc);
-	rotate_y(35, &wc);
+	rotate_z(-45, &wc); // What default projection should be chosen?
+	rotate_x(60, &wc);
 	sc->x = wc.x;
 	sc->y = wc.y;
 	sc->color = wc.color;
