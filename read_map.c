@@ -29,15 +29,16 @@ static size_t	calculate_columns(char *buf)
 {
 	size_t	count;
 	size_t	i;
+	char	prev;
 
 	count = 0;
 	i = 0;
+	prev = ' ';
 	while (buf[i] && buf[i] != '\n')
 	{
-		if (i == 0 && ft_isdigit(buf[i]))
+		if (ft_isspace(prev) && !ft_isspace(buf[i])) // ie a new word is starting
 			count++;
-		if (ft_isspace(buf[i]) && !ft_isspace(buf[i + 1]))
-			count++;
+		prev = buf[i];
 		i++;
 	}
 	return (count);
@@ -59,7 +60,7 @@ static t_map	*init_map(t_list **rows)
 		error_exit(ERR_STR);
 	map->rows = ft_lstsize(*rows);
 	map->columns = calculate_columns((*rows)->content);
-	cur = *rows;
+	cur = (*rows)->next;
 	while (cur)
 	{
 		if (map->columns != calculate_columns(cur->content))
