@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 09:05:12 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/11 16:43:41 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/14 11:06:51 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 int		ft_atoi(const char *str);
+int		ft_atoi_base(const char *str, const char *base);
 char	*ft_strdup(const char *s1);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
