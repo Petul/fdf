@@ -12,6 +12,7 @@
 
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
+#include <stdio.h>
 
 static int abs(int n)
 {
@@ -36,9 +37,10 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 		dy = -dy;
 	}
 	d = (2 * dy) - dx;
-	while (start.x <= end.x && start.y >= 0 && (uint32_t)start.y <= img->height && start.x >= 0 && (uint32_t)start.x <= img->width)
+	while (start.x <= end.x)
 	{
-		mlx_put_pixel(img, start.x, start.y, start.color);
+		if ((uint32_t)start.x < img->width && (uint32_t)start.y < img->height)
+			mlx_put_pixel(img, start.x, start.y, start.color);
 		if (d > 0)
 		{
 			start.y = start.y + y_i;
@@ -67,9 +69,10 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 		dx = -dx;
 	}
 	d = (2 * dx) - dy;
-	while (start.y <= end.y && start.y >= 0 && (uint32_t)start.y <= img->height && start.x >= 0 && (uint32_t)start.x <= img->width)
+	while (start.y <= end.y)
 	{
-		mlx_put_pixel(img, start.x, start.y, start.color);
+		if ((uint32_t)start.x < img->width && (uint32_t)start.y < img->height)
+			mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)start.y, start.color);
 		if (d > 0)
 		{
 			start.x = start.x + x_i;
