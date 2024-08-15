@@ -6,15 +6,16 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/07/18 19:40:38 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/15 14:27:22 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := fdf
 CC := cc
 #CFLAGS := -Wall -Wextra -Werror
-CFLAGS := -Wall -Wextra -g -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -g 
 CFILES :=	fdf.c \
+			color.c \
 			draw_line.c \
 			draw_map.c \
 			error.c \
@@ -40,7 +41,7 @@ $(LIBFT):
 	make -C libft
 
 $(LIBMLX42):
-	cmake mlx42 -B mlx42/build
+	cmake mlx42 -B mlx42/build -D DEBUG=1
 	make -C mlx42/build -j4
 
 %.o: %.c

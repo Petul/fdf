@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include <stdio.h> //
-#include "libft/include/libft.h"
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 

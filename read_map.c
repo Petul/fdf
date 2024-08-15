@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/14 13:21:12 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:21:31 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,14 +105,14 @@ static void	parse_token(t_ver *ver, char *tok)
 		if (!height || !color)
 			error_exit(ERR_STR);
 		ver->height = ft_atoi(height); // Check overflow?
-		ver->color = (ft_atoi_base(color + 2, HEX_BASE) << 8) | (0x000000FF);
+		ver->color = get_color((ft_atoi_base(color + 2, HEX_BASE) << 8) | (0x000000FF));
 		release(height);
 		release(color);
 	}
 	else
 	{
 		ver->height = ft_atoi(tok);
-		ver->color = DEFAULT_COLOR;
+		ver->color = get_color(DEFAULT_COLOR);
 	}
 }
 

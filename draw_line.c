@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/14 13:21:55 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:30:27 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 	while (start.x <= end.x)
 	{
 		if (start.x > 0 && start.y > 0 && start.x < (int)img->width && start.y < (int)img->height)
-			mlx_put_pixel(img, start.x, start.y, start.color);
+			mlx_put_pixel(img, start.x, start.y, get_rgba(start.color));
 		if (d > 0)
 		{
 			start.y = start.y + y_i;
@@ -71,7 +71,7 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 	while (start.y <= end.y)
 	{
 		if (start.x > 0 && start.y > 0 && start.x < (int)img->width && start.y < (int)img->height)
-			mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)start.y, start.color);
+			mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)start.y, get_rgba(start.color));
 		if (d > 0)
 		{
 			start.x = start.x + x_i;

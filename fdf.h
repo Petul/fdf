@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/14 12:36:41 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:29:40 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,19 @@
 # define HEX_BASE "0123456789ABCDEF"
 # define ERR_STR "Error"
 
+typedef struct	s_color
+{
+	uint8_t r;
+	uint8_t	g;
+	uint8_t	b;
+	uint8_t	a;
+}	t_color;
+
 typedef struct	s_point2d
 {
 	int			x;
 	int			y;
-	uint32_t	color;
+	t_color		color;
 }	t_point2d;
 
 typedef struct	s_point3d
@@ -37,13 +45,13 @@ typedef struct	s_point3d
 	int			x;
 	int			y;
 	int			z;
-	uint32_t	color;
+	t_color		color;
 }	t_point3d;
 
 typedef struct	s_ver
 {
-	int height;
-	int	color;
+	int		height;
+	t_color	color;
 }	t_ver;
 
 typedef struct	s_map
@@ -80,5 +88,7 @@ void		rotate_y(int deg, t_point3d *p);
 void		rotate_z(int deg, t_point3d *p);
 void	calculate_auto_scale(t_context *c);
 void	upper(char *str);
+uint32_t	get_rgba(t_color c);
+t_color	get_color(uint32_t rgba);
 
 #endif
