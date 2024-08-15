@@ -70,7 +70,6 @@ void draw_map(mlx_t *mlx, t_map *map, mlx_image_t *img)
 {
 	size_t	i;
 	size_t	j;
-	int color;
 	
 	calculate_translation(mlx, map);
 	apply_translation(map);
@@ -80,8 +79,6 @@ void draw_map(mlx_t *mlx, t_map *map, mlx_image_t *img)
 		j = 0;
 		while (j < map->columns)
 		{
-			//color = (0xFFFFFF << map->sc[i][j].color);
-			//
 			if (j != map->columns - 1)
 				draw_line(map->sc[i][j], map->sc[i][j + 1], img);
 			if (i != map->rows - 1)
