@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "math.h"
 #include "fdf.h"
 
 static void	get_projection(t_point3d wc, t_point2d *sc)

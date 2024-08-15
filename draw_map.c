@@ -10,14 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h> //
 #include "libft/include/libft.h"
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 
 static void	calculate_translation(mlx_t *mlx, t_map *map)
 {
-	int	x[2];
-	int	y[2];
+	int		x[2];
+	int		y[2];
 	size_t	col;
 	size_t	row;
 

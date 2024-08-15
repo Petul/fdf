@@ -27,17 +27,17 @@
 
 typedef struct	s_point2d
 {
-	int	x;
-	int	y;
-	uint32_t color;
+	int			x;
+	int			y;
+	uint32_t	color;
 }	t_point2d;
 
 typedef struct	s_point3d
 {
-	int	x;
-	int	y;
-	int	z;
-	uint32_t color;
+	int			x;
+	int			y;
+	int			z;
+	uint32_t	color;
 }	t_point3d;
 
 typedef struct	s_ver
