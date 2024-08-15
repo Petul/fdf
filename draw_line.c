@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/15 14:30:27 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:58:28 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 	int	dy;
 	int	d;
 	int	y_i;
+	int	i;
 
 	dx = end.x - start.x;
 	dy = end.y - start.y;
@@ -36,10 +37,11 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 		dy = -dy;
 	}
 	d = (2 * dy) - dx;
-	while (start.x <= end.x)
+	i = 0;
+	while (start.x + i <= end.x)
 	{
-		if (start.x > 0 && start.y > 0 && start.x < (int)img->width && start.y < (int)img->height)
-			mlx_put_pixel(img, start.x, start.y, get_rgba(start.color));
+		if (start.x + i > 0 && start.y > 0 && start.x + i < (int)img->width && start.y < (int)img->height)
+			mlx_put_pixel(img, (uint32_t)(start.x + i), (uint32_t)start.y, get_rgba(interpolate_colors(start.color, end.color, (float)(i / (float)dx))));
 		if (d > 0)
 		{
 			start.y = start.y + y_i;
@@ -47,7 +49,7 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 		}
 		else
 			d = d + (2 * dy);
-		start.x++;
+		i++;
 	}
 }
 
@@ -58,6 +60,7 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 	int	dy;
 	int	d;
 	int	x_i;
+	int i;
 
 	dx = end.x - start.x;
 	dy = end.y - start.y;
@@ -68,10 +71,11 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 		dx = -dx;
 	}
 	d = (2 * dx) - dy;
-	while (start.y <= end.y)
+	i = 0;
+	while (start.y + i <= end.y)
 	{
-		if (start.x > 0 && start.y > 0 && start.x < (int)img->width && start.y < (int)img->height)
-			mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)start.y, get_rgba(start.color));
+		if (start.x > 0 && start.y + i > 0 && start.x < (int)img->width && start.y + i < (int)img->height)
+			mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)(start.y + i), get_rgba(interpolate_colors(start.color, end.color, (float)(i / (float)dy))));
 		if (d > 0)
 		{
 			start.x = start.x + x_i;
@@ -79,7 +83,7 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 		}
 		else
 			d = d + (2 * dx);
-		start.y++;
+		i++;
 	}
 }
 

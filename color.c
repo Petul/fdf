@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 13:03:48 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/15 13:27:41 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:49:35 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,23 @@ t_color	get_color(uint32_t rgba)
 	c.b = (rgba >> 8) & 0xFF;
 	c.a = rgba & 0xFF;
 	return (c);
+}
+
+/**
+ * @brief Generates an intermediary color between start and end
+ *
+ * @param start Start color
+ * @param end End color
+ * @param d Distance progressed between start and end (e.g. 0.5 is halfway, 0 is at start)
+ * @return Intermediary color
+ */
+t_color	interpolate_colors(t_color start, t_color end, float d)
+{
+	t_color in;
+
+	in.r = start.r + (end.r - start.r) * d;
+	in.g = start.g + (end.g - start.g) * d;
+	in.b = start.b + (end.b - start.b) * d;
+	in.a = start.a + (end.a - start.a) * d;
+	return (in);
 }

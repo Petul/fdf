@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/15 14:29:40 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/15 14:49:27 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,6 @@ void	calculate_auto_scale(t_context *c);
 void	upper(char *str);
 uint32_t	get_rgba(t_color c);
 t_color	get_color(uint32_t rgba);
+t_color	interpolate_colors(t_color start, t_color end, float d);
 
 #endif
