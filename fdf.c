@@ -6,11 +6,10 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:13:49 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/14 12:42:16 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:58:48 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/include/ft_printf.h"
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 #include <stdio.h>
@@ -37,37 +36,50 @@
 //
 // }
 
-// static void draw_points(t_map *map, mlx_image_t *img)
-// {
-// 	size_t	i;
-// 	size_t	j;
-// 	int color;
-// 	
-// 	i = 0;
-// 	while (i < map->rows)
-// 	{
-// 		j = 0;
-// 		while (j < map->columns)
-// 		{
-// 			//color = (0xFFFFFF << map->sc[i][j].color);
-// 			//
-// 			draw_square(map->sc[i][j].x, map->sc[i][j].y, 5, 0xFFFF0000, img);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// }
-void handle_resize(int32_t width, int32_t height, void *param)
+static void reset_map(void	*context)
 {
-	t_context	*context;
-	
-	context = (t_context *)param;
-	mlx_resize_image(context->img, width, height);
+	t_context *c;
+
+	c = (t_context *)context;
 	calculate_auto_scale(context);
-	ft_memset(context->img->pixels, 0, context->img->width * context->img->height * sizeof(int32_t));
-	calculate_projection(context->map);
-	draw_map(context->mlx, context->map, context->img);
+	calculate_projection(c->map);
+	calculate_translation(c->mlx, c->map);
 }
+
+void	handle_resize(int32_t width, int32_t height, void *context)
+{
+	t_context	*c;
+	
+	c = (t_context *)context;
+	mlx_resize_image(c->img, width, height);
+	ft_memset(c->img->pixels, 0, c->img->width * c->img->height * sizeof(int32_t));
+	calculate_projection(c->map);
+	calculate_translation(c->mlx, c->map);
+	draw_map(c->map, c->img);
+}
+
+void	handle_zoom(double xdelta, double ydelta, void *context)
+{
+	t_context *c;
+
+	(void)xdelta;
+	c = (t_context *)context;
+	if (ydelta > 0)
+	{
+		c->map->settings->xy_scale *= 1.1;
+		c->map->settings->z_scale *= 1.1;
+	}
+	else
+	{
+		c->map->settings->xy_scale *= 0.9;
+		c->map->settings->z_scale *= 0.9;
+	}
+	ft_memset(c->img->pixels, 0, c->img->width * c->img->height * sizeof(int32_t));
+	calculate_projection(c->map);
+	calculate_translation(c->mlx, c->map);
+	draw_map(c->map, c->img);
+}
+
 // Print the window width and height.
 int	fdf(t_context *context)
 {
@@ -75,23 +87,17 @@ int	fdf(t_context *context)
 	mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "fdf", true);
 	if (!mlx)
 		error_exit((char *)mlx_strerror(mlx_errno));
-
-	context->mlx = mlx;
-	calculate_auto_scale(context);
-
 	// Create and display the image.
 	mlx_image_t* img = mlx_new_image(mlx, mlx->width, mlx->height);
 	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
 		error_exit((char *)mlx_strerror(mlx_errno));
+
+	context->mlx = mlx;
 	context->img = img;
-
-	ft_memset(img->pixels, 0, img->width * img->height * sizeof(int32_t));
-	calculate_projection(context->map);
-	draw_map(mlx, context->map, img);
-
+	reset_map(context);
+	draw_map(context->map, img);
 	mlx_resize_hook(mlx, &handle_resize, context);
-	// Register a hook and pass mlx as an optional param.
-	// NOTE: Do this before calling mlx_loop!
+	mlx_scroll_hook(mlx, &handle_zoom, context);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

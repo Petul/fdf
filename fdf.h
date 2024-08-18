@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/15 14:49:27 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/16 15:39:46 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,19 @@ typedef struct	s_ver
 	t_color	color;
 }	t_ver;
 
+typedef struct	s_settings
+{
+	float	xy_scale;
+	float	z_scale;
+	int		x_trans;
+	int		y_trans;
+}	t_settings;
+
 typedef struct	s_map
 {
 	size_t		rows;
 	size_t		columns;
-	size_t		xy_scale;
-	size_t		z_scale;
-	int			x_translate;
-	int			y_translate;
+	t_settings	*settings;
 	t_ver		*vertices;
 	t_point2d	**sc;
 }	t_map;
@@ -81,15 +86,16 @@ void		iter_2darr(char **arr, void (fn)(void *));
 t_list		**read_rows(int fd);
 void		draw_line(t_point2d start, t_point2d end, mlx_image_t *img);
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map);
-void	calculate_projection(t_map *map);
-void draw_map(mlx_t *mlx, t_map *map, mlx_image_t *img);
+void		calculate_projection(t_map *map);
+void		draw_map(t_map *map, mlx_image_t *img);
 void		rotate_x(int deg, t_point3d *p);
 void		rotate_y(int deg, t_point3d *p);
 void		rotate_z(int deg, t_point3d *p);
-void	calculate_auto_scale(t_context *c);
-void	upper(char *str);
+void		calculate_auto_scale(t_context *c);
+void		upper(char *str);
 uint32_t	get_rgba(t_color c);
-t_color	get_color(uint32_t rgba);
-t_color	interpolate_colors(t_color start, t_color end, float d);
+t_color		get_color(uint32_t rgba);
+t_color		interpolate_colors(t_color start, t_color end, float d);
+void		calculate_translation(mlx_t *mlx, t_map *map);
 
 #endif
