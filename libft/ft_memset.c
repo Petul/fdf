@@ -15,26 +15,25 @@ void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*p;	
 	size_t			i;
-	size_t			chunksize;
 	size_t			qword_value;
 
 	p = (unsigned char *)b;
-	chunksize = sizeof(size_t);
 	i = 0;
-	while (i < chunksize)
+	while (i < sizeof(size_t))
 	{
 		qword_value = (qword_value << 8) | (unsigned char)c;
 		i++;
 	}
-	while (len >= chunksize)
+	while (len >= sizeof(size_t))
 	{
 		*(size_t *)p = qword_value;
-		p += chunksize;
-		len -= chunksize;
+		p += sizeof(size_t);
+		len -= sizeof(size_t);
 	}
 	while (len > 0)
 	{
 		*p = (unsigned char)c;
+		p++;
 		len--;
 	}
 	return (b);
