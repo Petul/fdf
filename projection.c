@@ -12,10 +12,11 @@
 
 #include "fdf.h"
 
-static void	get_projection(t_point3d wc, t_point2d *sc)
+static void	get_projection(t_point3d wc, t_point2d *sc, t_map *map)
 {
-	rotate_z(-45, &wc); // What default projection should be chosen?
-	rotate_x(60, &wc);
+	rotate_z(map->settings->z_rot, &wc);
+	rotate_x(map->settings->x_rot, &wc);
+	rotate_y(map->settings->y_rot, &wc);
 	sc->x = wc.x;
 	sc->y = wc.y;
 	sc->color = wc.color;
@@ -32,7 +33,7 @@ void	calculate_projection(t_map *map)
 		col = 0;
 		while (col < map->columns)
 		{
-			get_projection(get_3d_point(col, row, map), &map->sc[row][col]);
+			get_projection(get_3d_point(col, row, map), &map->sc[row][col], map);
 			col++;
 		}
 		row++;

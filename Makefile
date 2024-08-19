@@ -15,10 +15,12 @@ CC := cc
 #CFLAGS := -Wall -Wextra -Werror
 CFLAGS := -Wall -Wextra -Werror -g 
 CFILES :=	fdf.c \
+			translation.c \
 			color.c \
 			draw_line.c \
 			draw_map.c \
 			error.c \
+			handle_keypress.c \
 			main.c \
 			matrix.c \
 			projection.c \

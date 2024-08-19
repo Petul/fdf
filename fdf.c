@@ -41,6 +41,9 @@ static void reset_map(void	*context)
 	t_context *c;
 
 	c = (t_context *)context;
+	c->map->settings->x_rot = DEFFAULT_X_ROT;
+	c->map->settings->y_rot = DEFFAULT_Y_ROT;
+	c->map->settings->z_rot = DEFFAULT_Z_ROT;
 	calculate_auto_scale(context);
 	calculate_projection(c->map);
 	calculate_translation(c->mlx, c->map);
@@ -98,6 +101,7 @@ int	fdf(t_context *context)
 	draw_map(context->map, img);
 	mlx_resize_hook(mlx, &handle_resize, context);
 	mlx_scroll_hook(mlx, &handle_zoom, context);
+	mlx_key_hook(mlx, &handle_keypress, context);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);

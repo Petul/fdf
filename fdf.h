@@ -24,6 +24,9 @@
 # define DEFAULT_COLOR 0xFFFFFFFF
 # define HEX_BASE "0123456789ABCDEF"
 # define ERR_STR "Error"
+# define DEFFAULT_X_ROT 35
+# define DEFFAULT_Y_ROT 0
+# define DEFFAULT_Z_ROT -45
 
 typedef struct	s_color
 {
@@ -60,6 +63,9 @@ typedef struct	s_settings
 	float	z_scale;
 	int		x_trans;
 	int		y_trans;
+	int		x_rot;
+	int		y_rot;
+	int		z_rot;
 }	t_settings;
 
 typedef struct	s_map
@@ -97,5 +103,6 @@ uint32_t	get_rgba(t_color c);
 t_color		get_color(uint32_t rgba);
 t_color		interpolate_colors(t_color start, t_color end, float d);
 void		calculate_translation(mlx_t *mlx, t_map *map);
+void		handle_keypress(mlx_key_data_t keydata, void *context);
 
 #endif
