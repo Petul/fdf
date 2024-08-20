@@ -6,13 +6,21 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:07:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/16 16:09:22 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:16:45 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 
+static	void cycle_color(t_map *map)
+{
+	if (map->settings->current_color >= N_COLORS - 1)
+		map->settings->current_color = 0;
+	else
+		map->settings->current_color++;
+
+}
 static	void update_degrees(int *s, int c)
 {
 	*s += c;
@@ -21,7 +29,7 @@ static	void update_degrees(int *s, int c)
 	if (*s < 0)
 		*s += 360;
 }
-
+//todo: scale the values maybe
 void	handle_keypress(mlx_key_data_t keydata, void *context)
 {
 	t_context	*c;
@@ -47,6 +55,10 @@ void	handle_keypress(mlx_key_data_t keydata, void *context)
 		c->map->settings->y_offset += 2;
 	if (keydata.key == MLX_KEY_S)
 		c->map->settings->y_offset -= 2;
+	if (keydata.key == MLX_KEY_R)
+		reset_map(c);	
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+		cycle_color(c->map);
 	ft_memset(c->img->pixels, 0, c->img->width * c->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->mlx, c->map);

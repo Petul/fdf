@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/16 15:39:46 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:40:34 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 # define WIDTH 512
 # define HEIGHT 512
 # define PADDING 10
-//# define DEFAULT_COLOR 0x00000000
 # define DEFAULT_COLOR 0xFFFFFFFF
 # define HEX_BASE "0123456789ABCDEF"
 # define ERR_STR "Error"
 # define DEFFAULT_X_ROT 35
 # define DEFFAULT_Y_ROT 0
 # define DEFFAULT_Z_ROT -45
+# define N_COLORS 32
 
 typedef struct	s_color
 {
@@ -54,7 +54,7 @@ typedef struct	s_point3d
 typedef struct	s_ver
 {
 	int		height;
-	t_color	color;
+	t_color	*colors;
 }	t_ver;
 
 typedef struct	s_settings
@@ -68,12 +68,15 @@ typedef struct	s_settings
 	int		x_rot;
 	int		y_rot;
 	int		z_rot;
+	size_t	current_color;
 }	t_settings;
 
 typedef struct	s_map
 {
 	size_t		rows;
 	size_t		columns;
+	int			max_z;
+	int			min_z;
 	t_settings	*settings;
 	t_ver		*vertices;
 	t_point2d	**sc;
@@ -106,5 +109,7 @@ t_color		get_color(uint32_t rgba);
 t_color		interpolate_colors(t_color start, t_color end, float d);
 void		calculate_translation(mlx_t *mlx, t_map *map);
 void		handle_keypress(mlx_key_data_t keydata, void *context);
+void		reset_map(void	*context);
+void		paint_vertices(t_map *map);
 
 #endif

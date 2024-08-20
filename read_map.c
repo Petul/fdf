@@ -6,10 +6,11 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/16 09:26:42 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 14:05:23 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -95,6 +96,9 @@ static void	parse_token(t_ver *ver, char *tok)
 	char	*height;
 	char	*color;
 
+	ver->colors = creserve(N_COLORS, sizeof(t_color));
+	if (!ver->colors)
+		error_exit(ERR_STR);
 	delim = ft_strchr(tok, ',');
 	if (delim)
 	{
@@ -106,15 +110,23 @@ static void	parse_token(t_ver *ver, char *tok)
 		if (!height || !color)
 			error_exit(ERR_STR);
 		ver->height = ft_atoi(height); // Check overflow?
-		ver->color = get_color((ft_atoi_base(color + 2, HEX_BASE) << 8) | (0x000000FF));
+		ver->colors[0] = get_color((ft_atoi_base(color + 2, HEX_BASE) << 8) | (0x000000FF));
 		release(height);
 		release(color);
 	}
 	else
 	{
 		ver->height = ft_atoi(tok);
-		ver->color = get_color(DEFAULT_COLOR);
+		ver->colors[0] = get_color(DEFAULT_COLOR);
 	}
+}
+
+static void update_max_min(t_map * map, size_t v_i)
+{
+	if (v_i == 0 || map->vertices[v_i].height > map->max_z)
+		map->max_z = map->vertices[v_i].height;
+	if (v_i == 0 || map->vertices[v_i].height < map->min_z)
+		map->min_z = map->vertices[v_i].height;
 }
 
 /**
@@ -140,6 +152,7 @@ static void	parse_rows_to_map(t_map *map, t_list **rows)
 		while (toks[t_i] && toks[t_i][0] != '\n')
 		{
 			parse_token(map->vertices + v_i, toks[t_i]);
+			update_max_min(map, v_i);
 			v_i++;
 			t_i++;
 		}
@@ -166,5 +179,6 @@ t_map	*read_map(char *path)
 	rows = read_rows(fd);
 	map = init_map(rows);
 	parse_rows_to_map(map, rows);
+	paint_vertices(map);
 	return (map);
 }

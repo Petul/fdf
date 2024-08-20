@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:21:30 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/16 10:04:22 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 13:49:05 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_point3d	get_3d_point(size_t col, size_t row, t_map *map)
 	wc.y = row * map->settings->xy_scale;
 	ind = row * map->columns + col;
 	wc.z = map->vertices[ind].height * map->settings->z_scale;
-	wc.color = map->vertices[ind].color;
+	wc.color = map->vertices[ind].colors[map->settings->current_color];
 	return (wc);
 }
 
