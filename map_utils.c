@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:00:56 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/20 14:09:33 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:53:38 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void reset_map(void	*context)
 	c->map->settings->x_offset = 0;
 	c->map->settings->y_offset = 0;
 	c->map->settings->current_color = 0;
+	c->map->settings->thickness = 1;
 	calculate_auto_scale(context);
 	calculate_projection(c->map);
 	calculate_translation(c->mlx, c->map);

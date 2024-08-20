@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/20 15:40:34 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:53:09 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct	s_settings
 	int		y_rot;
 	int		z_rot;
 	size_t	current_color;
+	size_t	thickness;
 }	t_settings;
 
 typedef struct	s_map
@@ -95,7 +96,7 @@ t_map		*read_map(char *path);
 void		error_exit(char *err_msg);
 void		iter_2darr(char **arr, void (fn)(void *));
 t_list		**read_rows(int fd);
-void		draw_line(t_point2d start, t_point2d end, mlx_image_t *img);
+void		draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *img);
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map);
 void		calculate_projection(t_map *map);
 void		draw_map(t_map *map, mlx_image_t *img);

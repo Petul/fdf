@@ -6,12 +6,13 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:07:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/20 14:16:45 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:58:53 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
+#include <stdint.h>
 
 static	void cycle_color(t_map *map)
 {
@@ -28,6 +29,16 @@ static	void update_degrees(int *s, int c)
 		*s -= 360;
 	if (*s < 0)
 		*s += 360;
+}
+
+static	void update_thickness(int change, t_map *map)
+{
+	if (map->settings->thickness + change < 1)
+		map->settings->thickness = 1;
+	else if (map->settings->thickness + change > 10)
+		map->settings->thickness = 10;
+	else
+		map->settings->thickness += change;
 }
 //todo: scale the values maybe
 void	handle_keypress(mlx_key_data_t keydata, void *context)
@@ -59,6 +70,10 @@ void	handle_keypress(mlx_key_data_t keydata, void *context)
 		reset_map(c);	
 	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
 		cycle_color(c->map);
+	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
+		update_thickness(-1, c->map);
+	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+		update_thickness(1, c->map);
 	ft_memset(c->img->pixels, 0, c->img->width * c->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->mlx, c->map);

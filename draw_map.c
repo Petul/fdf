@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 14:08:31 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/16 15:42:22 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:54:23 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void draw_map(t_map *map, mlx_image_t *img)
 		while (j < map->columns)
 		{
 			if (j != map->columns - 1)
-				draw_line(map->sc[i][j], map->sc[i][j + 1], img);
+				draw_line(map->sc[i][j], map->sc[i][j + 1], map->settings->thickness, img);
 			if (i != map->rows - 1)
-				draw_line(map->sc[i][j], map->sc[i + 1][j], img);
+				draw_line(map->sc[i][j], map->sc[i + 1][j], map->settings->thickness, img);
 			j++;
 		}
 		i++;

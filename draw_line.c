@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/15 14:58:28 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/20 15:59:21 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,20 +87,37 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 	}
 }
 
-void	draw_line(t_point2d start, t_point2d end, mlx_image_t *img)
+void	draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *img)
 {
-	if (abs(end.y - start.y) < abs(end.x - start.x))
+	size_t	i;
+
+	i = 0;
+	while (i < thickness)
 	{
-		if (start.x > end.x)
-			plot_low(end, start, img);
+		if (i % 2 == 0)
+		{
+			start.x += i;
+			end.x += i;
+		}
 		else
-			plot_low(start, end, img);
-	}
-	else
-	{
-		if (start.y > end.y)
-			plot_high(end, start, img);
+		{
+			start.x -= i;
+			end.x -= i;
+		}
+		if (abs(end.y - start.y) < abs(end.x - start.x))
+		{
+			if (start.x > end.x)
+				plot_low(end, start, img);
+			else
+				plot_low(start, end, img);
+		}
 		else
-			plot_high(start, end, img);
+		{
+			if (start.y > end.y)
+				plot_high(end, start, img);
+			else
+				plot_high(start, end, img);
+		}
+		i++;
 	}
 }
