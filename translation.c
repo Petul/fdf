@@ -18,6 +18,6 @@ void	calculate_translation(mlx_t *mlx, t_map *map)
 
 	middle_point = map->sc[map->rows / 2][map->columns / 2];
 	
-	map->settings->x_trans = (mlx->width / 2) - middle_point.x;
-	map->settings->y_trans = (mlx->height / 2) - middle_point.y;
+	map->settings->x_trans = (mlx->width / 2) - middle_point.x + map->settings->x_offset;
+	map->settings->y_trans = (mlx->height / 2) - middle_point.y + map->settings->y_offset;
 }

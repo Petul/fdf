@@ -63,6 +63,8 @@ typedef struct	s_settings
 	float	z_scale;
 	int		x_trans;
 	int		y_trans;
+	int		x_offset;
+	int		y_offset;
 	int		x_rot;
 	int		y_rot;
 	int		z_rot;

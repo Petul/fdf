@@ -35,6 +35,18 @@ void	handle_keypress(mlx_key_data_t keydata, void *context)
 		update_degrees(&c->map->settings->x_rot, 1);
 	if (keydata.key == MLX_KEY_K)
 		update_degrees(&c->map->settings->x_rot, -1);
+	if (keydata.key == MLX_KEY_Z)
+		c->map->settings->z_scale *= 0.9;
+	if (keydata.key == MLX_KEY_X)
+		c->map->settings->z_scale *= 1.1;
+	if (keydata.key == MLX_KEY_D)
+		c->map->settings->x_offset += 2;
+	if (keydata.key == MLX_KEY_A)
+		c->map->settings->x_offset -= 2;
+	if (keydata.key == MLX_KEY_W)
+		c->map->settings->y_offset += 2;
+	if (keydata.key == MLX_KEY_S)
+		c->map->settings->y_offset -= 2;
 	ft_memset(c->img->pixels, 0, c->img->width * c->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->mlx, c->map);

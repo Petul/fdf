@@ -12,7 +12,6 @@
 
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -44,6 +43,8 @@ static void reset_map(void	*context)
 	c->map->settings->x_rot = DEFFAULT_X_ROT;
 	c->map->settings->y_rot = DEFFAULT_Y_ROT;
 	c->map->settings->z_rot = DEFFAULT_Z_ROT;
+	c->map->settings->x_offset = 0;
+	c->map->settings->y_offset = 0;
 	calculate_auto_scale(context);
 	calculate_projection(c->map);
 	calculate_translation(c->mlx, c->map);
