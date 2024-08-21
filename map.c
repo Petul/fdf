@@ -1,16 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_utils.c                                        :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:00:56 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 10:49:10 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:45:05 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/include/memlist.h"
 #include "fdf.h"
+
+t_map	*init_map(mlx_t *mlx, t_model *model)
+{
+	t_map	*map;
+	size_t i;
+
+	map = reserve(sizeof(t_map));
+	if (!map)
+		error_exit(ERR_STR);
+	map->model = model;
+	map->sc = creserve(map->model->rows, sizeof(t_point2d *));
+	map->settings = creserve(1, sizeof(t_settings));
+	if (!map->sc || !map->settings)
+		error_exit(ERR_STR);
+	i = 0;
+	while (i < map->model->rows)
+	{
+		map->sc[i] = creserve(model->columns, sizeof(t_point2d));
+		if (!map->sc[i])
+			error_exit(ERR_STR);
+		i++;
+	}
+	map->img = mlx_new_image(mlx, mlx->width, mlx->height);
+	if (!map->img || (mlx_image_to_window(mlx, map->img, 0, 0) < 0))
+		error_exit((char *)mlx_strerror(mlx_errno));
+	return (map);
+}
 
 void reset_map(void	*context)
 {
@@ -24,33 +52,8 @@ void reset_map(void	*context)
 	c->map->settings->y_offset = 0;
 	c->map->settings->current_color = 0;
 	c->map->settings->thickness = 1;
-	calculate_auto_scale(c);
+	calculate_auto_scale(c->map);
 	calculate_projection(c->map);
 	calculate_translation(c->map);
 }
 
-void	resize_image(t_map *m)
-{
-	ft_memset(m->img->pixels, 0, m->img->width * m->img->height * sizeof(int32_t));
-	calculate_projection(m);
-	calculate_translation(m);
-	draw_map(m, m->img);
-}
-
-void	zoom_image(t_map *m, double ydelta)
-{
-	if (ydelta > 0)
-	{
-		m->settings->xy_scale *= 1.1;
-		m->settings->z_scale *= 1.1;
-	}
-	else
-	{
-		m->settings->xy_scale *= 0.9;
-		m->settings->z_scale *= 0.9;
-	}
-	ft_memset(m->img->pixels, 0, m->img->width * m->img->height * sizeof(int32_t));
-	calculate_projection(m);
-	calculate_translation(m);
-	draw_map(m, m->img);
-}

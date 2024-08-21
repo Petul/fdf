@@ -12,7 +12,7 @@
 
 NAME := libft.a
 CC := cc
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -g
 CFILES := ft_atoi.c \
 	ft_atoi_base.c \
 	ft_bzero.c \

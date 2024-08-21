@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/15 13:03:48 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 09:35:54 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:29:18 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_color	interpolate_colors(t_color start, t_color end, float d)
 	return (in);
 }
 
-void	paint_vertices(t_map *map)
+void	paint_vertices(t_model *m)
 {
 	size_t	i;
 	size_t	j;
@@ -56,15 +56,15 @@ void	paint_vertices(t_map *map)
 	uint32_t end;
 
 	i = 0;
-	while (i < map->columns * map->rows)
+	while (i < m->columns * m->rows)
 	{
 		j = 1;
 		while (j < N_COLORS)
 		{
-			d = (float)map->vertices[i].height / (map->max_z - map->min_z);
+			d = (float)m->vertices[i].height / (m->max_z - m->min_z);
 			start = (0xFFFFFFFF & ~(0xFF << (32/N_COLORS * (j)))) | 0xFF;
 			end = (0x000000FF << (32/N_COLORS * (j - 1))) | 0xFF;
-			map->vertices[i].colors[j] = interpolate_colors(get_color(start), get_color(end), d);
+			m->vertices[i].colors[j] = interpolate_colors(get_color(start), get_color(end), d);
 			j++;
 		}
 		i++;

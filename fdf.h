@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 10:51:04 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:44:55 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,15 +74,20 @@ typedef struct	s_settings
 	size_t	thickness;
 }	t_settings;
 
-typedef struct	s_map
+typedef struct	s_model
 {
-	mlx_image_t	*img;
 	size_t		rows;
 	size_t		columns;
 	int			max_z;
 	int			min_z;
-	t_settings	*settings;
 	t_ver		*vertices;
+}	t_model;
+
+typedef struct	s_map
+{
+	mlx_image_t	*img;
+	t_model		*model;
+	t_settings	*settings;
 	t_point2d	**sc;
 }	t_map;
 
@@ -104,8 +109,8 @@ typedef struct s_context
 	
 }	t_context;
 
-int			fdf(t_context *context);
-t_map		*read_map(char *path);
+int			fdf(char *path);
+t_model		*read_model(char *path);
 void		error_exit(char *err_msg);
 void		iter_2darr(char **arr, void (fn)(void *));
 t_list		**read_rows(int fd);
@@ -116,7 +121,7 @@ void		draw_map(t_map *map, mlx_image_t *img);
 void		rotate_x(int deg, t_point3d *p);
 void		rotate_y(int deg, t_point3d *p);
 void		rotate_z(int deg, t_point3d *p);
-void		calculate_auto_scale(t_context *c);
+void		calculate_auto_scale(t_map *m);
 void		upper(char *str);
 uint32_t	get_rgba(t_color c);
 t_color		get_color(uint32_t rgba);
@@ -124,12 +129,13 @@ t_color		interpolate_colors(t_color start, t_color end, float d);
 void		calculate_translation(t_map *map);
 void		handle_keypress(mlx_key_data_t keydata, void *context);
 void		reset_map(void	*context);
-void		paint_vertices(t_map *map);
+void		paint_vertices(t_model *m);
 void		draw_menu(t_menu *menu);
-t_menu		*init_menu(void);
-void	zoom_image(t_map *m, double ydelta);
-void resize_image(t_map *m);
-void	handle_resize(int32_t width, int32_t height, void *context);
-void	handle_zoom(double xdelta, double ydelta, void *context);
+t_menu		*init_menu(mlx_t *mlx);
+void		zoom_image(t_map *m, double ydelta);
+void		resize_image(t_map *m);
+void		handle_resize(int32_t width, int32_t height, void *context);
+void		handle_zoom(double xdelta, double ydelta, void *context);
+t_map	*init_map(mlx_t *mlx, t_model *model);
 
 #endif

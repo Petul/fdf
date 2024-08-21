@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/20 14:05:23 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/21 12:30:18 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,38 +50,39 @@ static size_t	calculate_columns(char *buf)
  * @param rows list of row buffers
  * @return the initialized map
  */
-static t_map	*init_map(t_list **rows)
+static t_model	*init_model(t_list **rows)
 {
-	t_map	*map;
+	t_model	*model;
 	t_list	*cur;
-	size_t i;
 
-	map = reserve(sizeof(t_map));
-	if (!map)
+	model = reserve(sizeof(t_model));
+	if (!model)
 		error_exit(ERR_STR);
-	map->rows = ft_lstsize(*rows);
-	map->columns = calculate_columns((*rows)->content);
+	model->rows = ft_lstsize(*rows);
+	model->columns = calculate_columns((*rows)->content);
 	cur = (*rows)->next;
 	while (cur)
 	{
-		if (map->columns != calculate_columns(cur->content))
+		if (model->columns != calculate_columns(cur->content))
 			error_exit("Map error");
 		cur = cur->next;
 	}
-	map->vertices = reserve(map->columns * map->rows * sizeof(t_ver));
-	map->sc = creserve(map->rows, sizeof(t_point2d *));
-	map->settings = creserve(1, sizeof(t_settings));
-	if (!map->vertices || !map->sc || !map->settings)
+	model->vertices = reserve(model->columns * model->rows * sizeof(t_ver));
+	if (!model->vertices)
 		error_exit(ERR_STR);
-	i = 0;
-	while (i < map->rows)
-	{
-		map->sc[i] = creserve(map->columns, sizeof(t_point2d));
-		if (!map->sc[i])
-			error_exit(ERR_STR);
-		i++;
-	}
-	return (map);
+	//map->sc = creserve(map->rows, sizeof(t_point2d *));
+	// map->settings = creserve(1, sizeof(t_settings));
+	// if (!map->vertices || !map->sc || !map->settings)
+	// 	error_exit(ERR_STR);
+	//i = 0;
+	// while (i < map->rows)
+	// {
+	// 	map->sc[i] = creserve(map->columns, sizeof(t_point2d));
+	// 	if (!map->sc[i])
+	// 		error_exit(ERR_STR);
+	// 	i++;
+	// }
+	return (model);
 }
 
 /**
@@ -121,12 +122,12 @@ static void	parse_token(t_ver *ver, char *tok)
 	}
 }
 
-static void update_max_min(t_map * map, size_t v_i)
+static void update_max_min(t_model * m, size_t v_i)
 {
-	if (v_i == 0 || map->vertices[v_i].height > map->max_z)
-		map->max_z = map->vertices[v_i].height;
-	if (v_i == 0 || map->vertices[v_i].height < map->min_z)
-		map->min_z = map->vertices[v_i].height;
+	if (v_i == 0 || m->vertices[v_i].height > m->max_z)
+		m->max_z = m->vertices[v_i].height;
+	if (v_i == 0 || m->vertices[v_i].height < m->min_z)
+		m->min_z = m->vertices[v_i].height;
 }
 
 /**
@@ -135,7 +136,7 @@ static void update_max_min(t_map * map, size_t v_i)
  * @param map Map where the parsed information is stored
  * @param rows List of rows in the file
  */
-static void	parse_rows_to_map(t_map *map, t_list **rows)
+static void	parse_rows_to_map(t_model *m, t_list **rows)
 {
 	t_list	*cur;
 	char	**toks;
@@ -151,8 +152,8 @@ static void	parse_rows_to_map(t_map *map, t_list **rows)
 		iter_2darr(toks, &memlist_add);
 		while (toks[t_i] && toks[t_i][0] != '\n')
 		{
-			parse_token(map->vertices + v_i, toks[t_i]);
-			update_max_min(map, v_i);
+			parse_token(m->vertices + v_i, toks[t_i]);
+			update_max_min(m, v_i);
 			v_i++;
 			t_i++;
 		}
@@ -167,9 +168,9 @@ static void	parse_rows_to_map(t_map *map, t_list **rows)
  * @param path path to the file
  * @return the map
  */
-t_map	*read_map(char *path)
+t_model	*read_model(char *path)
 {
-	t_map	*map;
+	t_model	*model;
 	t_list	**rows;
 	int		fd;
 
@@ -177,8 +178,8 @@ t_map	*read_map(char *path)
 	if (fd < 0)
 		error_exit(strerror(errno));
 	rows = read_rows(fd);
-	map = init_map(rows);
-	parse_rows_to_map(map, rows);
-	paint_vertices(map);
-	return (map);
+	model = init_model(rows);
+	parse_rows_to_map(model, rows);
+	paint_vertices(model);
+	return (model);
 }

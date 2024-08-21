@@ -6,7 +6,7 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/08/21 10:43:54 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/21 11:05:46 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,9 @@ CFILES :=	fdf.c \
 			handle_keypress.c \
 			handlers.c \
 			main.c \
-			map_utils.c \
+			map.c \
 			matrix.c \
+			menu.c \
 			projection.c \
 			read_file.c \
 			read_map.c \
