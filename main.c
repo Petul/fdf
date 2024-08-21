@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:38:13 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/22 16:20:53 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:21:44 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	map = read_map(argv[1]);
 	context = creserve(1, sizeof(t_context));
 	context->map = map;
+	context->menu = init_menu();
 	fdf(context);
 	release(map);
 	memlist_release_all();

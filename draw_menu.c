@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   translation.c                                      :+:      :+:    :+:   */
+/*   draw_menu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 15:33:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 10:39:29 by pleander         ###   ########.fr       */
+/*   Created: 2024/08/21 09:08:40 by pleander          #+#    #+#             */
+/*   Updated: 2024/08/21 10:50:41 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft/include/memlist.h"
 #include "fdf.h"
-// Find middle point in map, place in the middle of the window
-void	calculate_translation(t_map *map)
-{
-	t_point2d middle_point;
 
-	middle_point = map->sc[map->rows / 2][map->columns / 2];
-	
-	map->settings->x_trans = (map->img->width / 2) - middle_point.x + map->settings->x_offset;
-	map->settings->y_trans = (map->img->height / 2) - middle_point.y + map->settings->y_offset;
+t_menu	*init_menu(void)
+{
+	t_menu	*m;
+
+	m = creserve(1, sizeof(t_menu));
+	if (!m)
+		error_exit(ERR_STR);
+	m->show = 1;
+	return (m);
+}
+void	draw_menu(t_menu *menu)
+{
+	ft_memset(menu->img->pixels, 0xFFFFFFDD, menu->img->width * menu->img->height * sizeof(int32_t));
 }

@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/20 15:53:09 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/21 10:51:04 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define DEFFAULT_Y_ROT 0
 # define DEFFAULT_Z_ROT -45
 # define N_COLORS 32
+# define MENU_X_P 0.02
+# define MENU_Y_P 0.02
 
 typedef struct	s_color
 {
@@ -74,6 +76,7 @@ typedef struct	s_settings
 
 typedef struct	s_map
 {
+	mlx_image_t	*img;
 	size_t		rows;
 	size_t		columns;
 	int			max_z;
@@ -83,11 +86,21 @@ typedef struct	s_map
 	t_point2d	**sc;
 }	t_map;
 
+typedef struct	s_menu
+{
+	mlx_image_t	*img;
+	size_t		x_pos;
+	size_t		y_pos;
+	int			show;
+	char		*text;
+
+}	t_menu;
+
 typedef struct s_context
 {
 	mlx_t		*mlx;
-	mlx_image_t	*img;
 	t_map		*map;
+	t_menu		*menu;
 	
 }	t_context;
 
@@ -108,9 +121,15 @@ void		upper(char *str);
 uint32_t	get_rgba(t_color c);
 t_color		get_color(uint32_t rgba);
 t_color		interpolate_colors(t_color start, t_color end, float d);
-void		calculate_translation(mlx_t *mlx, t_map *map);
+void		calculate_translation(t_map *map);
 void		handle_keypress(mlx_key_data_t keydata, void *context);
 void		reset_map(void	*context);
 void		paint_vertices(t_map *map);
+void		draw_menu(t_menu *menu);
+t_menu		*init_menu(void);
+void	zoom_image(t_map *m, double ydelta);
+void resize_image(t_map *m);
+void	handle_resize(int32_t width, int32_t height, void *context);
+void	handle_zoom(double xdelta, double ydelta, void *context);
 
 #endif

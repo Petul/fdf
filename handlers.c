@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   translation.c                                      :+:      :+:    :+:   */
+/*   handlers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/16 15:33:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 10:39:29 by pleander         ###   ########.fr       */
+/*   Created: 2024/08/21 10:35:49 by pleander          #+#    #+#             */
+/*   Updated: 2024/08/21 10:49:37 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-// Find middle point in map, place in the middle of the window
-void	calculate_translation(t_map *map)
-{
-	t_point2d middle_point;
 
-	middle_point = map->sc[map->rows / 2][map->columns / 2];
+void	handle_resize(int32_t width, int32_t height, void *context)
+{
+	t_context	*c;
 	
-	map->settings->x_trans = (map->img->width / 2) - middle_point.x + map->settings->x_offset;
-	map->settings->y_trans = (map->img->height / 2) - middle_point.y + map->settings->y_offset;
+	c = (t_context *)context;
+	mlx_resize_image(c->map->img, width, height);
+	resize_image(c->map);
+}
+
+void	handle_zoom(double xdelta, double ydelta, void *context)
+{
+	t_context *c;
+
+	(void)xdelta;
+	c = (t_context *)context;
+	zoom_image(c->map, ydelta);
 }
