@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 15:13:49 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 12:38:32 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/22 15:41:44 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	fdf(char *path)
 {
 	t_context	*c;
 	t_model		*model;
+	char		*text;
 
 	model = read_model(path);
 	c = creserve(1, sizeof(t_context));
@@ -37,6 +38,9 @@ int	fdf(char *path)
 	reset_map(c);
 	draw_map(c->map, c->map->img);
 	draw_menu(c->menu);
+	text = get_menu_text(c);
+	write_menu_text(mlx, c->menu, text);
+	release(text);
 	mlx_resize_hook(mlx, &handle_resize, c);
 	mlx_scroll_hook(mlx, &handle_zoom, c);
 	mlx_key_hook(mlx, &handle_keypress, c);

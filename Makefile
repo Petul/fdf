@@ -6,21 +6,21 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/08/21 11:05:46 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/22 15:04:22 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := fdf
 CC := cc
 #CFLAGS := -Wall -Wextra -Werror
-CFLAGS := -Wall -Wextra -Werror -g
+#CFLAGS := -Wall -Wextra -Werror -g
+CFLAGS := -Wall -Wextra -g
 CFILES :=	fdf.c \
 			translation.c \
 			color.c \
 			draw_line.c \
 			draw_map.c \
 			draw_menu.c \
-			draw_rectangle.c \
 			error.c \
 			handle_keypress.c \
 			handlers.c \
@@ -31,6 +31,7 @@ CFILES :=	fdf.c \
 			projection.c \
 			read_file.c \
 			read_map.c \
+			text.c \
 			utils.c
 
 LIBFT := libft/libft.a

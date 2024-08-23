@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 12:44:55 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/23 10:57:32 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # include "mlx42/include/MLX42/MLX42.h"
 # include "libft/include/libft.h"
 
-# define WIDTH 512
-# define HEIGHT 512
+# define WIDTH 1024
+# define HEIGHT 1024
 # define PADDING 10
 # define DEFAULT_COLOR 0xFFFFFFFF
 # define HEX_BASE "0123456789ABCDEF"
@@ -27,8 +27,17 @@
 # define DEFFAULT_Y_ROT 0
 # define DEFFAULT_Z_ROT -45
 # define N_COLORS 32
-# define MENU_X_P 0.02
-# define MENU_Y_P 0.02
+# define MENU_WIDTH 250
+# define MENU_HEIGHT 400
+# define MENU_X 10
+# define MENU_Y 10
+
+# define FONT_HEIGHT 20
+# define ROTATE "Rotate model:\nh, j, k, l"
+# define TRANSLATE "Translate model:\nw, a, s, d"
+# define ROTATE_COLOR "Rotate color:\nc"
+# define ADJ_HEIGHT "Adjust height:\nz/x"
+
 
 typedef struct	s_color
 {
@@ -94,11 +103,10 @@ typedef struct	s_map
 typedef struct	s_menu
 {
 	mlx_image_t	*img;
+	mlx_image_t	**text_imgs;
 	size_t		x_pos;
 	size_t		y_pos;
 	int			show;
-	char		*text;
-
 }	t_menu;
 
 typedef struct s_context
@@ -108,6 +116,14 @@ typedef struct s_context
 	t_menu		*menu;
 	
 }	t_context;
+
+// typedef struct s_text
+// {
+// 	mlx_image_t	*img;
+// 	size_t		x_pos;
+// 	size_t		y_pos;
+// }	t_text;
+
 
 int			fdf(char *path);
 t_model		*read_model(char *path);
@@ -137,5 +153,7 @@ void		resize_image(t_map *m);
 void		handle_resize(int32_t width, int32_t height, void *context);
 void		handle_zoom(double xdelta, double ydelta, void *context);
 t_map	*init_map(mlx_t *mlx, t_model *model);
+mlx_image_t	**write_menu_text(mlx_t *mlx, t_menu *m, char *text);
+char	*get_menu_text(t_context *c);
 
 #endif
