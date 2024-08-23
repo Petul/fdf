@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/21 11:05:49 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 10:57:43 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/23 12:58:59 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,16 @@ char	*get_menu_text(t_context *c)
 	char	*fstr;
 	int		chars;
 	
-	fstr = "%s\n%s\n%s\n%s";
-	chars = ft_snprintf(NULL, 0, fstr, ROTATE, TRANSLATE, ROTATE_COLOR, ADJ_HEIGHT); 
+	if (!c)
+		error_exit(ERR_STR);
+	fstr = "%s\n\n%s\n%s\n%s\n%s\n%s\n%s";
+	chars = ft_snprintf(NULL, 0, fstr, M_HEAD, M_EXIT, M_RESET, M_ROT, M_TRANS, M_COLOR, M_HEIGHT); 
+	if (chars < 0)
+		error_exit(ERR_STR);
 	t = creserve(chars + 1, sizeof(char));
-	chars = ft_snprintf(t, chars + 1, fstr, ROTATE, TRANSLATE, ROTATE_COLOR, ADJ_HEIGHT); 
-
+	chars = ft_snprintf(t, chars + 1, fstr, M_HEAD, M_EXIT, M_RESET, M_ROT, M_TRANS, M_COLOR, M_HEIGHT);
+	if (chars < 0)
+		error_exit(ERR_STR);
 	return(t);
 }
 

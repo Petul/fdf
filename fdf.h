@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 10:57:32 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:32:59 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,13 @@
 # define MENU_Y 10
 
 # define FONT_HEIGHT 20
-# define ROTATE "Rotate model:\nh, j, k, l"
-# define TRANSLATE "Translate model:\nw, a, s, d"
-# define ROTATE_COLOR "Rotate color:\nc"
-# define ADJ_HEIGHT "Adjust height:\nz/x"
+# define M_HEAD "        ==FDF=="
+# define M_ROT "Rotate model:\nh, j, k, l"
+# define M_TRANS "Translate model:\nw, a, s, d"
+# define M_COLOR "Rotate color:\nc"
+# define M_HEIGHT "Adjust height:\nz/x"
+# define M_EXIT "Exit: ESC"
+# define M_RESET "Reset: r"
 
 
 typedef struct	s_color

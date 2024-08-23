@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:07:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 10:43:19 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/23 11:06:28 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	handle_keypress(mlx_key_data_t keydata, void *context)
 		update_thickness(-1, c->map);
 	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		update_thickness(1, c->map);
+	if (keydata.key == MLX_KEY_ESCAPE)
+		mlx_close_window(c->mlx);
 	ft_memset(c->map->img->pixels, 0, c->map->img->width * c->map->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->map);
