@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:07:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 11:06:28 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/26 10:47:03 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,34 +48,39 @@ void	handle_keypress(mlx_key_data_t keydata, void *context)
 	c = (t_context *)context;
 	if (keydata.key == MLX_KEY_H)
 		update_degrees(&c->map->settings->z_rot, -1);
-	if (keydata.key == MLX_KEY_L)
+	else if (keydata.key == MLX_KEY_L)
 		update_degrees(&c->map->settings->z_rot, 1);
-	if (keydata.key == MLX_KEY_J)
+	else if (keydata.key == MLX_KEY_J)
 		update_degrees(&c->map->settings->x_rot, 1);
-	if (keydata.key == MLX_KEY_K)
+	else if (keydata.key == MLX_KEY_K)
 		update_degrees(&c->map->settings->x_rot, -1);
-	if (keydata.key == MLX_KEY_Z)
+	else if (keydata.key == MLX_KEY_Z)
 		c->map->settings->z_scale *= 0.9;
-	if (keydata.key == MLX_KEY_X)
+	else if (keydata.key == MLX_KEY_X)
 		c->map->settings->z_scale *= 1.1;
-	if (keydata.key == MLX_KEY_D)
+	else if (keydata.key == MLX_KEY_D)
 		c->map->settings->x_offset += 2;
-	if (keydata.key == MLX_KEY_A)
+	else if (keydata.key == MLX_KEY_A)
 		c->map->settings->x_offset -= 2;
-	if (keydata.key == MLX_KEY_W)
+	else if (keydata.key == MLX_KEY_W)
 		c->map->settings->y_offset += 2;
-	if (keydata.key == MLX_KEY_S)
+	else if (keydata.key == MLX_KEY_S)
 		c->map->settings->y_offset -= 2;
-	if (keydata.key == MLX_KEY_R)
+	else if (keydata.key == MLX_KEY_R)
 		reset_map(c);	
-	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+	else if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
 		cycle_color(c->map);
-	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
+	else if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
 		update_thickness(-1, c->map);
-	if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+	else if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
 		update_thickness(1, c->map);
-	if (keydata.key == MLX_KEY_ESCAPE)
+	else if (keydata.key == MLX_KEY_ESCAPE)
+	{
 		mlx_close_window(c->mlx);
+		return ;
+	}
+	else
+		return ;
 	ft_memset(c->map->img->pixels, 0, c->map->img->width * c->map->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->map);

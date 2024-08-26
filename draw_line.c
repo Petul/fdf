@@ -6,19 +6,13 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/20 15:59:21 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/26 15:51:48 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mlx42/include/MLX42/MLX42.h"
+#include "libft/include/libft.h"
 #include "fdf.h"
-
-static int abs(int n)
-{
-	if (n < 0)
-		return (-n);
-	return (n);
-}
 
 static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 {
@@ -52,7 +46,6 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 		i++;
 	}
 }
-
 
 static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 {
@@ -92,6 +85,8 @@ void	draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *im
 	size_t	i;
 
 	i = 0;
+	// if (!clip_line(img, &start, &end))
+	// 	return ;
 	while (i < thickness)
 	{
 		if (i % 2 == 0)
@@ -104,7 +99,7 @@ void	draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *im
 			start.x -= i;
 			end.x -= i;
 		}
-		if (abs(end.y - start.y) < abs(end.x - start.x))
+		if (ft_abs(end.y - start.y) < ft_abs(end.x - start.x))
 		{
 			if (start.x > end.x)
 				plot_low(end, start, img);
