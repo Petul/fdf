@@ -6,7 +6,7 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/08/26 15:31:52 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/27 15:10:19 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ CFLAGS := -Wall -Wextra -g
 CFILES :=	fdf.c \
 			translation.c \
 			clip_line.c \
+			clip_line2.c \
 			color.c \
 			draw_line.c \
 			draw_map.c \

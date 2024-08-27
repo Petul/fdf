@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 13:49:24 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/26 15:38:47 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:14:08 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	compute_outcode(mlx_image_t *img, t_point2d *p)
 {
 	int	oc;
-	
+
 	oc = OC_INSIDE;
 	if (p->x < 1)
 		oc |= OC_LEFT;
@@ -29,57 +29,41 @@ static int	compute_outcode(mlx_image_t *img, t_point2d *p)
 	return (oc);
 }
 
-static int cohen_sutherland(mlx_image_t *img, int ocode[2], t_point2d *start, t_point2d *end)
+static void	update_xy(mlx_image_t *img, int *xy, int *ocode, t_point2d *p)
 {
-	int	ocode_update;
-	int	x;
-	int	y;
+	p->x = xy[0];
+	p->y = xy[1];
+	*ocode = compute_outcode(img, p);
+}
 
-	//Loop until start and end inside viewport
-	while ((ocode[0] | ocode[1]))
+static int	cohen_sutherland(mlx_image_t *img,
+	int oc[2], t_point2d *s, t_point2d *e)
+{
+	int	oc_update;
+	int	xy[2];
+
+	while ((oc[0] | oc[1]))
 	{
-		if (ocode[0] & ocode[1]) // Line will not pass through viewport
+		if (oc[0] & oc[1])
 			return (0);
-		// Calculate point on intersection from a point outside the viewport
-		if (ocode[0] > ocode[1])
-			ocode_update = ocode[0];
+		if (oc[0] > oc[1])
+			oc_update = oc[0];
 		else
-			ocode_update = ocode[1];
-		if (ocode_update & OC_BOTTOM)
-		{
-			x = start->x + (end->x - start->x) * ((int)(img->height - 1) - start->y) / (end->y - start->y);
-			y = img->height - 1;
-		}
-		else if (ocode_update & OC_TOP)
-		{
-			x = start->x + (end->x - start->x) * (1 - start->y) / (end->y - start->y);
-			y = 1;
-		}
-		else if (ocode_update & OC_RIGHT)
-		{
-			y = start->y + (end->y - start->y) * ((int)(img->width - 1) - start->x) / (end->x - start->x);
-			x = img->width - 1;
-		}
-		else if (ocode_update & OC_LEFT)
-		{
-			y = start->y + (end->y - start->y) * (1 - start->x) / (end->x - start->x);
-			x = 1;
-		}
-		if (ocode_update == ocode[0])
-		{
-			start->x = x;
-			start->y = y;
-			ocode[0] = compute_outcode(img, start);
-		}
+			oc_update = oc[1];
+		if (oc_update & OC_BOTTOM)
+			calc_clip_bottom(img, s, e, xy);
+		else if (oc_update & OC_TOP)
+			calc_clip_top(s, e, xy);
+		else if (oc_update & OC_RIGHT)
+			calc_clip_right(img, s, e, xy);
+		else if (oc_update & OC_LEFT)
+			calc_clip_left(s, e, xy);
+		if (oc_update == oc[0])
+			update_xy(img, xy, &oc[0], s);
 		else
-		{
-			end->x = x;
-			end->y = y;
-			ocode[1] = compute_outcode(img, end);
-		}
+			update_xy(img, xy, &oc[1], e);
 	}
 	return (1);
-
 }
 
 int	clip_line(mlx_image_t *img, t_point2d *start, t_point2d *end)

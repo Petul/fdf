@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/27 09:41:18 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:10:08 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,5 +158,9 @@ mlx_image_t	**write_menu_text(mlx_t *mlx, t_menu *m, char *text);
 char		*get_menu_text(t_context *c);
 void		update_max_min(t_model * m, size_t v_i);
 int			clip_line(mlx_image_t *img, t_point2d *start, t_point2d *end);
+void		calc_clip_bottom(mlx_image_t *img, t_point2d *start, t_point2d *end, int xy[2]);
+void		calc_clip_top(t_point2d *start, t_point2d *end, int xy[2]);
+void		calc_clip_right(mlx_image_t *img, t_point2d *start, t_point2d *end, int xy[2]);
+void		calc_clip_left(t_point2d *start, t_point2d *end, int xy[2]);
 
 #endif
