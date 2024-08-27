@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:47:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 13:39:56 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:26:47 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@
 static int	count_rows(char	*text)
 {
 	int	rows;
-	
+
 	if (!text)
 		return (0);
 	rows = 1;
-	while(*text)
+	while (*text)
 	{
 		if (*text == '\n' && *(text + 1) != 0)
 			rows++;
 		text++;
 	}
-	return(rows);
+	return (rows);
 }
 
 static void	write_text(mlx_t *mlx, mlx_image_t **text_imgs, char *text)
@@ -74,7 +74,7 @@ static void	clear_text(mlx_t *mlx, mlx_image_t **text_imgs)
 
 mlx_image_t	**write_menu_text(mlx_t *mlx, t_menu *m, char *text)
 {
-	int rows;
+	int	rows;
 
 	rows = count_rows(text);
 	if (m->text_imgs != NULL)

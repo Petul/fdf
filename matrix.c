@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/18 18:52:36 by pleander          #+#    #+#             */
-/*   Updated: 2024/07/18 19:29:08 by pleander         ###   ########.fr       */
+/*   Created: 2024/08/27 15:57:24 by pleander          #+#    #+#             */
+/*   Updated: 2024/08/27 15:57:33 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 #include "fdf.h"
 #include "libft/include/libft.h"
 
-
 /**
  * @brief Multiplies a 3x3 matrix with a 3x1 column vector
  *
  * @param m Matric
  * @param p Column vector (Point)
  */
-static void mat_mul(float m[3][3], t_point3d *p)
+static void	mat_mul(float m[3][3], t_point3d *p)
 {
-	t_point3d res;
+	t_point3d	res;
 
 	res.x = p->x * m[0][0] + p->y * m[0][1] + p->z * m[0][2];
 	res.y = p->x * m[1][0] + p->y * m[1][1] + p->z * m[1][2];
@@ -52,7 +51,7 @@ void	rotate_x(int deg, t_point3d *p)
 	matrix[1][1] = cos(rad);
 	matrix[1][2] = -sin(rad);
 	matrix[2][1] = sin(rad);
-	matrix[2][2] = cos(rad); //copy previous value?
+	matrix[2][2] = cos(rad);
 	mat_mul(matrix, p);
 }
 
@@ -64,7 +63,7 @@ void	rotate_x(int deg, t_point3d *p)
  */
 void	rotate_y(int deg, t_point3d *p)
 {
-	float		matrix[3][3];
+	float	matrix[3][3];
 	float	rad;
 
 	rad = 0.01745 * deg;
@@ -87,7 +86,7 @@ void	rotate_y(int deg, t_point3d *p)
  */
 void	rotate_z(int deg, t_point3d *p)
 {
-	float		matrix[3][3];
+	float	matrix[3][3];
 	float	rad;
 
 	rad = 0.01745 * deg;

@@ -6,17 +6,24 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:00:56 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 12:45:05 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:59:20 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/include/memlist.h"
 #include "fdf.h"
 
+/**
+ * @brief Initializes the map structure
+ *
+ * @param mlx 
+ * @param model the 3d model structure
+ * @return initialized map
+ */
 t_map	*init_map(mlx_t *mlx, t_model *model)
 {
 	t_map	*map;
-	size_t i;
+	size_t	i;
 
 	map = reserve(sizeof(t_map));
 	if (!map)
@@ -40,9 +47,14 @@ t_map	*init_map(mlx_t *mlx, t_model *model)
 	return (map);
 }
 
-void reset_map(void	*context)
+/**
+ * @brief Resets the map to default settings
+ *
+ * @param context 
+ */
+void	reset_map(void	*context)
 {
-	t_context *c;
+	t_context	*c;
 
 	c = (t_context *)context;
 	c->map->settings->x_rot = DEFFAULT_X_ROT;
@@ -56,4 +68,3 @@ void reset_map(void	*context)
 	calculate_projection(c->map);
 	calculate_translation(c->map);
 }
-

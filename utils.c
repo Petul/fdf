@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:21:30 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/24 09:35:52 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:20:42 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 
+/**
+ * @brief Calculates 3d point from the loaded map
+ *
+ * @param col column of point
+ * @param row row of point
+ * @param map the map
+ * @return 
+ */
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map)
 {
 	t_point3d	wc;
@@ -30,10 +38,15 @@ t_point3d	get_3d_point(size_t col, size_t row, t_map *map)
 	return (wc);
 }
 
+/**
+ * @brief Iterates a 2d array
+ *
+ * @param arr the 2d array
+ */
 void	iter_2darr(char **arr, void (fn)(void *))
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (arr[i])
 	{
@@ -54,8 +67,9 @@ void	calculate_auto_scale(t_map *m)
 	float	diag_dist;
 	float	horizontal;
 	float	vertical;
-	
-	diag_dist = sqrt((m->model->columns * m->model->columns) + (m->model->rows * m->model->rows));
+
+	diag_dist = sqrt((m->model->columns * m->model->columns)
+			+ (m->model->rows * m->model->rows));
 	horizontal = (m->img->width - PADDING) / diag_dist;
 	vertical = (m->img->height - PADDING) / diag_dist;
 	if (horizontal < vertical)
@@ -86,7 +100,7 @@ void	upper(char *str)
  * @param m model
  * @param v_i vertice index
  */
-void update_max_min(t_model * m, size_t v_i)
+void	update_max_min(t_model *m, size_t v_i)
 {
 	if (v_i == 0 || m->vertices[v_i].height > m->max_z)
 		m->max_z = m->vertices[v_i].height;

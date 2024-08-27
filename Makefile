@@ -6,7 +6,7 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/08/27 15:10:19 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/27 15:49:36 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ CFILES :=	fdf.c \
 			map.c \
 			matrix.c \
 			menu.c \
+			parse_token.c \
 			projection.c \
 			read_file.c \
 			read_map.c \

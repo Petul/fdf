@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 13:15:24 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/27 15:50:58 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static size_t	calculate_columns(char *buf)
 	prev = ' ';
 	while (buf[i] && buf[i] != '\n')
 	{
-		if (ft_isspace(prev) && !ft_isspace(buf[i])) // ie a new word is starting
+		if (ft_isspace(prev) && !ft_isspace(buf[i]))
 			count++;
 		prev = buf[i];
 		i++;
@@ -71,43 +71,6 @@ static t_model	*init_model(t_list **rows)
 	if (!model->vertices)
 		error_exit(ERR_STR);
 	return (model);
-}
-
-/**
- * @brief Parses height and color information from the token
- *
- * @param ver Vertice the place the information in
- * @param tok Token to parse
- */
-static void	parse_token(t_ver *ver, char *tok)
-{
-	char	*delim;
-	char	*height;
-	char	*color;
-
-	ver->colors = creserve(N_COLORS, sizeof(t_color));
-	if (!ver->colors)
-		error_exit(ERR_STR);
-	delim = ft_strchr(tok, ',');
-	if (delim)
-	{
-		height = ft_substr(tok, 0, delim - tok);
-		memlist_add(height);
-		color = ft_substr(tok, delim - tok + 1, ft_strlen(tok) - (delim - tok));
-		upper(color);
-		memlist_add(color);
-		if (!height || !color)
-			error_exit(ERR_STR);
-		ver->height = ft_atoi(height); // Check overflow?
-		ver->colors[0] = get_color((ft_atoi_base(color + 2, HEX_BASE) << 8) | (0x000000FF));
-		release(height);
-		release(color);
-	}
-	else
-	{
-		ver->height = ft_atoi(tok);
-		ver->colors[0] = get_color(DEFAULT_COLOR);
-	}
 }
 
 /**
