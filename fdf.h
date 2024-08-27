@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 11:32:59 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/24 09:35:51 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 # define DEFFAULT_Y_ROT 0
 # define DEFFAULT_Z_ROT -45
 # define N_COLORS 32
-# define MENU_WIDTH 250
-# define MENU_HEIGHT 400
+# define MENU_WIDTH 200
+# define MENU_HEIGHT 250
 # define MENU_X 10
 # define MENU_Y 10
 
 # define FONT_HEIGHT 20
-# define M_HEAD "        ==FDF=="
+# define M_HEAD "FDF"
 # define M_ROT "Rotate model:\nh, j, k, l"
 # define M_TRANS "Translate model:\nw, a, s, d"
 # define M_COLOR "Rotate color:\nc"
@@ -120,14 +120,6 @@ typedef struct s_context
 	
 }	t_context;
 
-// typedef struct s_text
-// {
-// 	mlx_image_t	*img;
-// 	size_t		x_pos;
-// 	size_t		y_pos;
-// }	t_text;
-
-
 int			fdf(char *path);
 t_model		*read_model(char *path);
 void		error_exit(char *err_msg);
@@ -155,8 +147,9 @@ void		zoom_image(t_map *m, double ydelta);
 void		resize_image(t_map *m);
 void		handle_resize(int32_t width, int32_t height, void *context);
 void		handle_zoom(double xdelta, double ydelta, void *context);
-t_map	*init_map(mlx_t *mlx, t_model *model);
+t_map		*init_map(mlx_t *mlx, t_model *model);
 mlx_image_t	**write_menu_text(mlx_t *mlx, t_menu *m, char *text);
-char	*get_menu_text(t_context *c);
+char		*get_menu_text(t_context *c);
+void		update_max_min(t_model * m, size_t v_i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:21:30 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 12:45:49 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/24 09:35:52 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,18 @@ void	upper(char *str)
 		*str = ft_toupper(*str);
 		str++;
 	}
+}
+
+/**
+ * @brief Updates values of max/min height values
+ *
+ * @param m model
+ * @param v_i vertice index
+ */
+void update_max_min(t_model * m, size_t v_i)
+{
+	if (v_i == 0 || m->vertices[v_i].height > m->max_z)
+		m->max_z = m->vertices[v_i].height;
+	if (v_i == 0 || m->vertices[v_i].height < m->min_z)
+		m->min_z = m->vertices[v_i].height;
 }

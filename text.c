@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/22 12:47:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/23 10:59:31 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:39:56 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ static void	write_text(mlx_t *mlx, mlx_image_t **text_imgs, char *text)
 		line = ft_substr(text, 0, nl - text);
 		if (!line)
 			error_exit(ERR_STR);
-		text_imgs[i] = mlx_put_string(mlx, line, MENU_X + 10, y);
+		if (*line != 0)
+			text_imgs[i] = mlx_put_string(mlx, line, MENU_X + 10, y);
 		free(line);
 		text = nl + 1;
 		nl = ft_strchr(text, '\n');

@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 11:52:01 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/21 12:30:18 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/23 13:15:24 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,6 @@ static t_model	*init_model(t_list **rows)
 	model->vertices = reserve(model->columns * model->rows * sizeof(t_ver));
 	if (!model->vertices)
 		error_exit(ERR_STR);
-	//map->sc = creserve(map->rows, sizeof(t_point2d *));
-	// map->settings = creserve(1, sizeof(t_settings));
-	// if (!map->vertices || !map->sc || !map->settings)
-	// 	error_exit(ERR_STR);
-	//i = 0;
-	// while (i < map->rows)
-	// {
-	// 	map->sc[i] = creserve(map->columns, sizeof(t_point2d));
-	// 	if (!map->sc[i])
-	// 		error_exit(ERR_STR);
-	// 	i++;
-	// }
 	return (model);
 }
 
@@ -120,14 +108,6 @@ static void	parse_token(t_ver *ver, char *tok)
 		ver->height = ft_atoi(tok);
 		ver->colors[0] = get_color(DEFAULT_COLOR);
 	}
-}
-
-static void update_max_min(t_model * m, size_t v_i)
-{
-	if (v_i == 0 || m->vertices[v_i].height > m->max_z)
-		m->max_z = m->vertices[v_i].height;
-	if (v_i == 0 || m->vertices[v_i].height < m->min_z)
-		m->min_z = m->vertices[v_i].height;
 }
 
 /**
