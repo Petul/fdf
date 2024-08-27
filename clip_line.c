@@ -18,14 +18,14 @@ static int	compute_outcode(mlx_image_t *img, t_point2d *p)
 	int	oc;
 	
 	oc = OC_INSIDE;
-	if (p->x < 0)
+	if (p->x < 1)
 		oc |= OC_LEFT;
-	if (p->x > (int)img->width)
+	if (p->x > (int)(img->width - 1))
 		oc |= OC_RIGHT;
-	if (p->y < 0)
-		oc |= OC_BOTTOM;
-	if (p->x > (int)img->height)
+	if (p->y < 1)
 		oc |= OC_TOP;
+	if (p->y > (int)(img->height - 1))
+		oc |= OC_BOTTOM;
 	return (oc);
 }
 
@@ -36,7 +36,7 @@ static int cohen_sutherland(mlx_image_t *img, int ocode[2], t_point2d *start, t_
 	int	y;
 
 	//Loop until start and end inside viewport
-	while (!(ocode[0] | ocode[1]))
+	while ((ocode[0] | ocode[1]))
 	{
 		if (ocode[0] & ocode[1]) // Line will not pass through viewport
 			return (0);
@@ -45,25 +45,25 @@ static int cohen_sutherland(mlx_image_t *img, int ocode[2], t_point2d *start, t_
 			ocode_update = ocode[0];
 		else
 			ocode_update = ocode[1];
-		if (ocode_update & OC_TOP)
+		if (ocode_update & OC_BOTTOM)
 		{
-			x = start->x + (end->x - start->x) * (img->height - start->y) / (end->y - start->y);
-			y = img->height;
+			x = start->x + (end->x - start->x) * ((int)(img->height - 1) - start->y) / (end->y - start->y);
+			y = img->height - 1;
 		}
-		else if (ocode_update & OC_BOTTOM)
+		else if (ocode_update & OC_TOP)
 		{
-			x = start->x + (end->x - start->x) * (0 - start->y) / (end->y - start->y);
-			y = 0;
+			x = start->x + (end->x - start->x) * (1 - start->y) / (end->y - start->y);
+			y = 1;
 		}
 		else if (ocode_update & OC_RIGHT)
 		{
-			y = start->y + (end->y - start->y) * (img->width - start->x) / (end->x - start->x);
-			x = img->width;
+			y = start->y + (end->y - start->y) * ((int)(img->width - 1) - start->x) / (end->x - start->x);
+			x = img->width - 1;
 		}
 		else if (ocode_update & OC_LEFT)
 		{
-			y = start->y + (end->y - start->y) * (0 - start->x) / (end->x - start->x);
-			x = 0;
+			y = start->y + (end->y - start->y) * (1 - start->x) / (end->x - start->x);
+			x = 1;
 		}
 		if (ocode_update == ocode[0])
 		{

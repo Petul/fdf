@@ -34,8 +34,7 @@ static void	plot_low(t_point2d start, t_point2d end, mlx_image_t *img)
 	i = 0;
 	while (start.x + i <= end.x)
 	{
-		if (start.x + i > 0 && start.y > 0 && start.x + i < (int)img->width && start.y < (int)img->height)
-			mlx_put_pixel(img, (uint32_t)(start.x + i), (uint32_t)start.y, get_rgba(interpolate_colors(start.color, end.color, (float)(i / (float)dx))));
+		mlx_put_pixel(img, (uint32_t)(start.x + i), (uint32_t)start.y, get_rgba(interpolate_colors(start.color, end.color, (float)(i / (float)dx))));
 		if (d > 0)
 		{
 			start.y = start.y + y_i;
@@ -67,8 +66,7 @@ static void	plot_high(t_point2d start, t_point2d end, mlx_image_t *img)
 	i = 0;
 	while (start.y + i <= end.y)
 	{
-		if (start.x > 0 && start.y + i > 0 && start.x < (int)img->width && start.y + i < (int)img->height)
-			mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)(start.y + i), get_rgba(interpolate_colors(start.color, end.color, (float)(i / (float)dy))));
+		mlx_put_pixel(img, (uint32_t)start.x, (uint32_t)(start.y + i), get_rgba(interpolate_colors(start.color, end.color, (float)(i / (float)dy))));
 		if (d > 0)
 		{
 			start.x = start.x + x_i;
@@ -85,8 +83,8 @@ void	draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *im
 	size_t	i;
 
 	i = 0;
-	// if (!clip_line(img, &start, &end))
-	// 	return ;
+	if (!clip_line(img, &start, &end))
+		return ;
 	while (i < thickness)
 	{
 		if (i % 2 == 0)
