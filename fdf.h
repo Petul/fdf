@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 11:45:55 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/24 09:35:51 by pleander         ###   ########.fr       */
+/*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
+/*   Updated: 2024/08/27 09:41:18 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@
 # define M_HEIGHT "Adjust height:\nz/x"
 # define M_EXIT "Exit: ESC"
 # define M_RESET "Reset: r"
+
+# define OC_INSIDE 0b0000
+# define OC_LEFT 0b0001
+# define OC_TOP 0b1000
+# define OC_RIGHT 0b0010
+# define OC_BOTTOM 0b0100
 
 
 typedef struct	s_color
@@ -151,5 +157,6 @@ t_map		*init_map(mlx_t *mlx, t_model *model);
 mlx_image_t	**write_menu_text(mlx_t *mlx, t_menu *m, char *text);
 char		*get_menu_text(t_context *c);
 void		update_max_min(t_model * m, size_t v_i);
+int			clip_line(mlx_image_t *img, t_point2d *start, t_point2d *end);
 
 #endif

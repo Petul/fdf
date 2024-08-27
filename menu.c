@@ -23,7 +23,7 @@ char	*get_menu_text(t_context *c)
 	
 	if (!c)
 		error_exit(ERR_STR);
-	fstr = "%s\n\n%s\n%s\n%s\n%s\n%s\n%s";
+	fstr = "%s\n%s\n%s\n%s\n%s\n%s\n%s";
 	chars = ft_snprintf(NULL, 0, fstr, M_HEAD, M_EXIT, M_RESET, M_ROT, M_TRANS, M_COLOR, M_HEIGHT); 
 	if (chars < 0)
 		error_exit(ERR_STR);

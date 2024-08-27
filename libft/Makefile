@@ -6,7 +6,7 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/16 09:43:07 by pleander          #+#    #+#              #
-#    Updated: 2024/08/14 11:05:10 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/26 09:45:10 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@ NAME := libft.a
 CC := cc
 CFLAGS := -Wall -Wextra -Werror -g
 CFILES := ft_atoi.c \
+	ft_abs.c \
 	ft_atoi_base.c \
 	ft_bzero.c \
 	ft_calloc.c \
