@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/27 15:49:12 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:43:05 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,9 @@ void		calc_clip_top(t_point2d *start, t_point2d *end, int xy[2]);
 void		calc_clip_right(mlx_image_t *img, t_point2d *start, t_point2d *end, int xy[2]);
 void		calc_clip_left(t_point2d *start, t_point2d *end, int xy[2]);
 void		parse_token(t_ver *ver, char *tok);
+void		zoom_model(mlx_key_data_t keydata, t_context *c);
+void		reset_model(mlx_key_data_t keydata, t_context *c);
+void		rotate_model(mlx_key_data_t keydata, t_context *c);
+void		move_model(mlx_key_data_t keydata, t_context *c);
 
 #endif

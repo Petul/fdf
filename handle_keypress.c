@@ -6,13 +6,13 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:07:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/26 10:47:03 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/28 12:44:18 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdint.h>
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
-#include <stdint.h>
 
 static	void cycle_color(t_map *map)
 {
@@ -22,14 +22,13 @@ static	void cycle_color(t_map *map)
 		map->settings->current_color++;
 
 }
-static	void update_degrees(int *s, int c)
+
+static void	cycle_model_color(mlx_key_data_t keydata, t_context *c)
 {
-	*s += c;
-	if (*s >= 360)
-		*s -= 360;
-	if (*s < 0)
-		*s += 360;
+	if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
+		cycle_color(c->map);
 }
+
 
 static	void update_thickness(int change, t_map *map)
 {
@@ -40,47 +39,32 @@ static	void update_thickness(int change, t_map *map)
 	else
 		map->settings->thickness += change;
 }
-//todo: scale the values maybe
+
+static void	update_model_thickness(mlx_key_data_t keydata, t_context *c)
+{
+	if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
+		update_thickness(-1, c->map);
+	else if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
+		update_thickness(1, c->map);
+}
+
+
+
 void	handle_keypress(mlx_key_data_t keydata, void *context)
 {
 	t_context	*c;
 	
 	c = (t_context *)context;
-	if (keydata.key == MLX_KEY_H)
-		update_degrees(&c->map->settings->z_rot, -1);
-	else if (keydata.key == MLX_KEY_L)
-		update_degrees(&c->map->settings->z_rot, 1);
-	else if (keydata.key == MLX_KEY_J)
-		update_degrees(&c->map->settings->x_rot, 1);
-	else if (keydata.key == MLX_KEY_K)
-		update_degrees(&c->map->settings->x_rot, -1);
-	else if (keydata.key == MLX_KEY_Z)
-		c->map->settings->z_scale *= 0.9;
-	else if (keydata.key == MLX_KEY_X)
-		c->map->settings->z_scale *= 1.1;
-	else if (keydata.key == MLX_KEY_D)
-		c->map->settings->x_offset += 2;
-	else if (keydata.key == MLX_KEY_A)
-		c->map->settings->x_offset -= 2;
-	else if (keydata.key == MLX_KEY_W)
-		c->map->settings->y_offset += 2;
-	else if (keydata.key == MLX_KEY_S)
-		c->map->settings->y_offset -= 2;
-	else if (keydata.key == MLX_KEY_R)
-		reset_map(c);	
-	else if (keydata.key == MLX_KEY_C && keydata.action == MLX_PRESS)
-		cycle_color(c->map);
-	else if (keydata.key == MLX_KEY_Q && keydata.action == MLX_PRESS)
-		update_thickness(-1, c->map);
-	else if (keydata.key == MLX_KEY_E && keydata.action == MLX_PRESS)
-		update_thickness(1, c->map);
-	else if (keydata.key == MLX_KEY_ESCAPE)
+	rotate_model(keydata, c);
+	zoom_model(keydata, c);
+	move_model(keydata, c);
+	update_model_thickness(keydata, c);
+	cycle_model_color(keydata, c);
+	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_close_window(c->mlx);
 		return ;
 	}
-	else
-		return ;
 	ft_memset(c->map->img->pixels, 0, c->map->img->width * c->map->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->map);

@@ -6,7 +6,7 @@
 #    By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/16 13:34:34 by pleander          #+#    #+#              #
-#    Updated: 2024/08/27 15:49:36 by pleander         ###   ########.fr        #
+#    Updated: 2024/08/28 12:43:39 by pleander         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ CFILES :=	fdf.c \
 			draw_menu.c \
 			error.c \
 			handle_keypress.c \
+			handle_keypress2.c \
 			handlers.c \
 			main.c \
 			map.c \

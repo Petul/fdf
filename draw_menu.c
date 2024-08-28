@@ -15,5 +15,6 @@
 
 void	draw_menu(t_menu *menu)
 {
-	ft_memset(menu->img->pixels, 0x0000088, menu->img->width * menu->img->height * sizeof(int32_t));
+	ft_memset(menu->img->pixels, 0x0000088,
+		menu->img->width * menu->img->height * sizeof(int32_t));
 }

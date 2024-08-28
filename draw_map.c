@@ -32,11 +32,11 @@ static void	apply_translation(t_map *map)
 	}
 }
 
-void draw_map(t_map *map, mlx_image_t *img)
+void	draw_map(t_map *map, mlx_image_t *img)
 {
 	size_t	i;
 	size_t	j;
-	
+
 	apply_translation(map);
 	i = 0;
 	while (i < map->model->rows)
@@ -45,9 +45,11 @@ void draw_map(t_map *map, mlx_image_t *img)
 		while (j < map->model->columns)
 		{
 			if (j != map->model->columns - 1)
-				draw_line(map->sc[i][j], map->sc[i][j + 1], map->settings->thickness, img);
+				draw_line(map->sc[i][j], map->sc[i][j + 1],
+					map->settings->thickness, img);
 			if (i != map->model->rows - 1)
-				draw_line(map->sc[i][j], map->sc[i + 1][j], map->settings->thickness, img);
+				draw_line(map->sc[i][j], map->sc[i + 1][j],
+					map->settings->thickness, img);
 			j++;
 		}
 		i++;
@@ -56,7 +58,8 @@ void draw_map(t_map *map, mlx_image_t *img)
 
 void	resize_image(t_map *m)
 {
-	ft_memset(m->img->pixels, 0, m->img->width * m->img->height * sizeof(int32_t));
+	ft_memset(m->img->pixels, 0, m->img->width
+		* m->img->height * sizeof(int32_t));
 	calculate_projection(m);
 	calculate_translation(m);
 	draw_map(m, m->img);
@@ -74,9 +77,9 @@ void	zoom_image(t_map *m, double ydelta)
 		m->settings->xy_scale *= 0.9;
 		m->settings->z_scale *= 0.9;
 	}
-	ft_memset(m->img->pixels, 0, m->img->width * m->img->height * sizeof(int32_t));
+	ft_memset(m->img->pixels, 0, m->img->width * m->img->height
+		* sizeof(int32_t));
 	calculate_projection(m);
 	calculate_translation(m);
 	draw_map(m, m->img);
 }
-

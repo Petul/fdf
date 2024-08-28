@@ -19,7 +19,7 @@ uint32_t	get_rgba(t_color c)
 
 t_color	get_color(uint32_t rgba)
 {
-	t_color c;
+	t_color	c;
 
 	c.r = (rgba >> 24) & 0xFF;
 	c.g = (rgba >> 16) & 0xFF;
@@ -33,12 +33,13 @@ t_color	get_color(uint32_t rgba)
  *
  * @param start Start color
  * @param end End color
- * @param d Distance progressed between start and end (e.g. 0.5 is halfway, 0 is at start)
+ * @param d Distance progressed between start and end
+ * (e.g. 0.5 is halfway, 0 is at start)
  * @return Intermediary color
  */
 t_color	interpolate_colors(t_color start, t_color end, float d)
 {
-	t_color in;
+	t_color	in;
 
 	in.r = start.r + (end.r - start.r) * d;
 	in.g = start.g + (end.g - start.g) * d;
@@ -49,11 +50,11 @@ t_color	interpolate_colors(t_color start, t_color end, float d)
 
 void	paint_vertices(t_model *m)
 {
-	size_t	i;
-	size_t	j;
-	float	d;
-	uint32_t start;
-	uint32_t end;
+	uint32_t	start;
+	uint32_t	end;
+	size_t		i;
+	size_t		j;
+	float		d;
 
 	i = 0;
 	while (i < m->columns * m->rows)
@@ -62,9 +63,10 @@ void	paint_vertices(t_model *m)
 		while (j < N_COLORS)
 		{
 			d = (float)m->vertices[i].height / (m->max_z - m->min_z);
-			start = (0xFFFFFFFF & ~(0xFF << (32/N_COLORS * (j)))) | 0xFF;
-			end = (0x000000FF << (32/N_COLORS * (j - 1))) | 0xFF;
-			m->vertices[i].colors[j] = interpolate_colors(get_color(start), get_color(end), d);
+			start = (0xFFFFFFFF & ~(0xFF << (32 / N_COLORS * (j)))) | 0xFF;
+			end = (0x000000FF << (32 / N_COLORS * (j - 1))) | 0xFF;
+			m->vertices[i].colors[j] = interpolate_colors(get_color(start),
+					get_color(end), d);
 			j++;
 		}
 		i++;
