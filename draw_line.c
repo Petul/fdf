@@ -1,4 +1,4 @@
-/* ************************************************************************** */
+
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
@@ -114,9 +114,6 @@ void	draw_line(t_point2d start, t_point2d end, size_t thickness,
 	size_t	i;
 
 	i = 0;
-	if (!clip_line(img, &start, &end))
-		return ;
-	//FIXME: BUG, when thickness is > 0 will segfault because drawing outside
 	while (i < thickness)
 	{
 		if (i % 2 == 0)
@@ -129,6 +126,8 @@ void	draw_line(t_point2d start, t_point2d end, size_t thickness,
 			start.x -= i;
 			end.x -= i;
 		}
+		if (!clip_line(img, &start, &end))
+			break ;
 		if (ft_abs(end.y - start.y) < ft_abs(end.x - start.x))
 			draw_low(start, end, img);
 		else

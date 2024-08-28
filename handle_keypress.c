@@ -14,13 +14,12 @@
 #include "mlx42/include/MLX42/MLX42.h"
 #include "fdf.h"
 
-static	void cycle_color(t_map *map)
+static void	cycle_color(t_map *map)
 {
 	if (map->settings->current_color >= N_COLORS - 1)
 		map->settings->current_color = 0;
 	else
 		map->settings->current_color++;
-
 }
 
 static void	cycle_model_color(mlx_key_data_t keydata, t_context *c)
@@ -29,8 +28,7 @@ static void	cycle_model_color(mlx_key_data_t keydata, t_context *c)
 		cycle_color(c->map);
 }
 
-
-static	void update_thickness(int change, t_map *map)
+static void	update_thickness(int change, t_map *map)
 {
 	if (map->settings->thickness + change < 1)
 		map->settings->thickness = 1;
@@ -48,24 +46,24 @@ static void	update_model_thickness(mlx_key_data_t keydata, t_context *c)
 		update_thickness(1, c->map);
 }
 
-
-
 void	handle_keypress(mlx_key_data_t keydata, void *context)
 {
 	t_context	*c;
-	
+
 	c = (t_context *)context;
 	rotate_model(keydata, c);
 	zoom_model(keydata, c);
 	move_model(keydata, c);
 	update_model_thickness(keydata, c);
 	cycle_model_color(keydata, c);
+	reset_model(keydata, c);
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_close_window(c->mlx);
 		return ;
 	}
-	ft_memset(c->map->img->pixels, 0, c->map->img->width * c->map->img->height * sizeof(int32_t));
+	ft_memset(c->map->img->pixels, 0,
+		c->map->img->width * c->map->img->height * sizeof(int32_t));
 	calculate_projection(c->map);
 	calculate_translation(c->map);
 	draw_map(c->map, c->map->img);

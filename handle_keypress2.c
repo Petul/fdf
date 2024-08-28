@@ -32,14 +32,13 @@ void	move_model(mlx_key_data_t keydata, t_context *c)
 		c->map->settings->y_offset -= 2;
 }
 
-
-void reset_model(mlx_key_data_t keydata, t_context *c)
+void	reset_model(mlx_key_data_t keydata, t_context *c)
 {
 	if (keydata.key == MLX_KEY_R)
-		reset_map(c);	
+		reset_map(c);
 }
 
-static	void update_degrees(int *s, int c)
+static void	update_degrees(int *s, int c)
 {
 	*s += c;
 	if (*s >= 360)

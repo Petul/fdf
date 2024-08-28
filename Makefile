@@ -14,7 +14,7 @@ NAME := fdf
 CC := cc
 #CFLAGS := -Wall -Wextra -Werror
 #CFLAGS := -Wall -Wextra -Werror -g
-CFLAGS := -Wall -Wextra -g
+CFLAGS := -Wall -Wextra -O2 -g
 CFILES :=	fdf.c \
 			translation.c \
 			clip_line.c \
