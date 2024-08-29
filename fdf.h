@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/29 16:36:51 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:46:55 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,28 +49,28 @@
 # define OC_RIGHT 0b0010
 # define OC_BOTTOM 0b0100
 
-typedef enum	e_proj
+typedef enum e_proj
 {
 	ISO,
 	PAR
-} t_proj;
+}	t_proj;
 
-typedef struct	s_color
+typedef struct s_color
 {
-	uint8_t r;
+	uint8_t	r;
 	uint8_t	g;
 	uint8_t	b;
 	uint8_t	a;
 }	t_color;
 
-typedef struct	s_point2d
+typedef struct s_point2d
 {
 	int			x;
 	int			y;
 	t_color		color;
 }	t_point2d;
 
-typedef struct	s_point3d
+typedef struct s_point3d
 {
 	int			x;
 	int			y;
@@ -78,13 +78,13 @@ typedef struct	s_point3d
 	t_color		color;
 }	t_point3d;
 
-typedef struct	s_ver
+typedef struct s_ver
 {
 	int		height;
 	t_color	*colors;
 }	t_ver;
 
-typedef struct	s_settings
+typedef struct s_settings
 {
 	t_proj	proj;
 	float	xy_scale;
@@ -100,7 +100,7 @@ typedef struct	s_settings
 	size_t	thickness;
 }	t_settings;
 
-typedef struct	s_model
+typedef struct s_model
 {
 	size_t		rows;
 	size_t		columns;
@@ -109,7 +109,7 @@ typedef struct	s_model
 	t_ver		*vertices;
 }	t_model;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	mlx_image_t	*img;
 	t_model		*model;
@@ -117,7 +117,7 @@ typedef struct	s_map
 	t_point2d	**sc;
 }	t_map;
 
-typedef struct	s_menu
+typedef struct s_menu
 {
 	mlx_image_t	*img;
 	mlx_image_t	**text_imgs;
@@ -131,7 +131,6 @@ typedef struct s_context
 	mlx_t		*mlx;
 	t_map		*map;
 	t_menu		*menu;
-	
 }	t_context;
 
 int			fdf(char *path);
@@ -139,7 +138,8 @@ t_model		*read_model(char *path);
 void		error_exit(char *err_msg);
 void		iter_2darr(char **arr, void (fn)(void *));
 t_list		**read_rows(int fd);
-void		draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *img);
+void		draw_line(t_point2d start, t_point2d end, size_t thickness,
+				mlx_image_t *img);
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map);
 void		calculate_projection(t_map *map);
 void		draw_map(t_map *map, mlx_image_t *img);
@@ -164,11 +164,13 @@ void		handle_zoom(double xdelta, double ydelta, void *context);
 t_map		*init_map(mlx_t *mlx, t_model *model);
 mlx_image_t	**write_menu_text(mlx_t *mlx, t_menu *m, char *text);
 char		*get_menu_text(t_context *c);
-void		update_max_min(t_model * m, size_t v_i);
+void		update_max_min(t_model *m, size_t v_i);
 int			clip_line(mlx_image_t *img, t_point2d *start, t_point2d *end);
-void		calc_clip_bottom(mlx_image_t *img, t_point2d *start, t_point2d *end, int xy[2]);
+void		calc_clip_bottom(mlx_image_t *img, t_point2d *start, t_point2d *end,
+				int xy[2]);
 void		calc_clip_top(t_point2d *start, t_point2d *end, int xy[2]);
-void		calc_clip_right(mlx_image_t *img, t_point2d *start, t_point2d *end, int xy[2]);
+void		calc_clip_right(mlx_image_t *img, t_point2d *start, t_point2d *end,
+				int xy[2]);
 void		calc_clip_left(t_point2d *start, t_point2d *end, int xy[2]);
 void		parse_token(t_ver *ver, char *tok);
 void		zoom_model(mlx_key_data_t keydata, t_context *c);
