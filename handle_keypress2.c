@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:36:24 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/28 12:42:55 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:25:34 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,4 @@ void	reset_model(mlx_key_data_t keydata, t_context *c)
 {
 	if (keydata.key == MLX_KEY_R)
 		reset_map(c);
-}
-
-static void	update_degrees(int *s, int c)
-{
-	*s += c;
-	if (*s >= 360)
-		*s -= 360;
-	if (*s < 0)
-		*s += 360;
-}
-
-void	rotate_model(mlx_key_data_t keydata, t_context *c)
-{
-	if (keydata.key == MLX_KEY_H)
-		update_degrees(&c->map->settings->z_rot, -1);
-	else if (keydata.key == MLX_KEY_L)
-		update_degrees(&c->map->settings->z_rot, 1);
-	else if (keydata.key == MLX_KEY_J)
-		update_degrees(&c->map->settings->x_rot, 1);
-	else if (keydata.key == MLX_KEY_K)
-		update_degrees(&c->map->settings->x_rot, -1);
 }

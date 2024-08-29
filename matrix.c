@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:57:24 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/27 15:57:33 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 15:47:58 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	mat_mul(float m[3][3], t_point3d *p)
  * @param deg Degrees to roatate
  * @param p Point
  */
-void	rotate_x(int deg, t_point3d *p)
+void	rotate_x(float deg, t_point3d *p)
 {
 	float	matrix[3][3];
 	float	rad;
@@ -49,8 +49,8 @@ void	rotate_x(int deg, t_point3d *p)
 	ft_bzero(matrix[2], sizeof(float) * 3);
 	matrix[0][0] = 1;
 	matrix[1][1] = cos(rad);
-	matrix[1][2] = -sin(rad);
-	matrix[2][1] = sin(rad);
+	matrix[1][2] = sin(rad);
+	matrix[2][1] = -sin(rad);
 	matrix[2][2] = cos(rad);
 	mat_mul(matrix, p);
 }
@@ -61,7 +61,7 @@ void	rotate_x(int deg, t_point3d *p)
  * @param deg Degrees to roatate
  * @param p Point
  */
-void	rotate_y(int deg, t_point3d *p)
+void	rotate_y(float deg, t_point3d *p)
 {
 	float	matrix[3][3];
 	float	rad;
@@ -71,9 +71,9 @@ void	rotate_y(int deg, t_point3d *p)
 	ft_bzero(matrix[1], sizeof(float) * 3);
 	ft_bzero(matrix[2], sizeof(float) * 3);
 	matrix[0][0] = cos(rad);
-	matrix[0][2] = sin(rad);
+	matrix[0][2] = -sin(rad);
 	matrix[1][1] = 1;
-	matrix[2][0] = -sin(rad);
+	matrix[2][0] = sin(rad);
 	matrix[2][2] = cos(rad);
 	mat_mul(matrix, p);
 }
@@ -84,7 +84,7 @@ void	rotate_y(int deg, t_point3d *p)
  * @param deg Degrees to roatate
  * @param p Point
  */
-void	rotate_z(int deg, t_point3d *p)
+void	rotate_z(float deg, t_point3d *p)
 {
 	float	matrix[3][3];
 	float	rad;

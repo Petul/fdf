@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/29 09:48:01 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:17:12 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@
 # define DEFAULT_COLOR 0xFFFFFFFF
 # define HEX_BASE "0123456789ABCDEF"
 # define ERR_STR "Error"
-# define DEFFAULT_X_ROT 35
+# define DEFFAULT_X_ROT -35.264
 # define DEFFAULT_Y_ROT 0
-# define DEFFAULT_Z_ROT -45
+# define DEFFAULT_Z_ROT 45
 # define N_COLORS 7
 # define MENU_WIDTH 200
 # define MENU_HEIGHT 250
@@ -38,6 +38,7 @@
 # define M_TRANS "Translate model:\nw, a, s, d"
 # define M_COLOR "Rotate color:\nc"
 # define M_HEIGHT "Adjust height:\nz/x"
+# define M_THICKNESS "Adjust thickness:\nq/e"
 # define M_EXIT "Exit: ESC"
 # define M_RESET "Reset: r"
 
@@ -47,6 +48,11 @@
 # define OC_RIGHT 0b0010
 # define OC_BOTTOM 0b0100
 
+typedef enum	e_proj
+{
+	ISO,
+	PAR
+} t_proj;
 
 typedef struct	s_color
 {
@@ -79,15 +85,16 @@ typedef struct	s_ver
 
 typedef struct	s_settings
 {
+	t_proj	proj;
 	float	xy_scale;
 	float	z_scale;
 	int		x_trans;
 	int		y_trans;
 	int		x_offset;
 	int		y_offset;
-	int		x_rot;
-	int		y_rot;
-	int		z_rot;
+	float	x_rot;
+	float	y_rot;
+	float	z_rot;
 	size_t	current_color;
 	size_t	thickness;
 }	t_settings;
@@ -135,9 +142,9 @@ void		draw_line(t_point2d start, t_point2d end, size_t thickness, mlx_image_t *i
 t_point3d	get_3d_point(size_t col, size_t row, t_map *map);
 void		calculate_projection(t_map *map);
 void		draw_map(t_map *map, mlx_image_t *img);
-void		rotate_x(int deg, t_point3d *p);
-void		rotate_y(int deg, t_point3d *p);
-void		rotate_z(int deg, t_point3d *p);
+void		rotate_x(float deg, t_point3d *p);
+void		rotate_y(float deg, t_point3d *p);
+void		rotate_z(float deg, t_point3d *p);
 void		calculate_auto_scale(t_map *m);
 void		upper(char *str);
 uint32_t	get_rgba(t_color c);
@@ -168,5 +175,6 @@ void		reset_model(mlx_key_data_t keydata, t_context *c);
 void		rotate_model(mlx_key_data_t keydata, t_context *c);
 void		move_model(mlx_key_data_t keydata, t_context *c);
 void		apply_thickness(t_point2d *s, t_point2d *e, size_t level);
+void		set_parallel_projection(mlx_key_data_t keydata, t_context *c);
 
 #endif

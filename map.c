@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/20 10:00:56 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/27 15:59:20 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:17:57 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	reset_map(void	*context)
 	t_context	*c;
 
 	c = (t_context *)context;
+	c->map->settings->proj = ISO;
 	c->map->settings->x_rot = DEFFAULT_X_ROT;
 	c->map->settings->y_rot = DEFFAULT_Y_ROT;
 	c->map->settings->z_rot = DEFFAULT_Z_ROT;

@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/18 11:29:43 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/27 15:52:05 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:12:59 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	get_projection(t_point3d wc, t_point2d *sc, t_map *map)
 {
 	rotate_z(map->settings->z_rot, &wc);
 	rotate_x(map->settings->x_rot, &wc);
-	rotate_y(map->settings->y_rot, &wc);
 	sc->x = wc.x;
 	sc->y = wc.y;
 	sc->color = wc.color;
