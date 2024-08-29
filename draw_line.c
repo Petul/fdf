@@ -1,12 +1,12 @@
-
+/* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   draw_line.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/17 11:39:46 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/28 12:50:06 by pleander         ###   ########.fr       */
+/*   Created: 2024/08/29 09:53:23 by pleander          #+#    #+#             */
+/*   Updated: 2024/08/29 09:53:24 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,14 @@ static void	draw_high(t_point2d start, t_point2d end, mlx_image_t *img)
 	}
 }
 
+/**
+ * @brief Draws a line between two points
+ *
+ * @param start starting point of line
+ * @param end ending point of line
+ * @param thickness thickness of line
+ * @param img image to draw on
+ */
 void	draw_line(t_point2d start, t_point2d end, size_t thickness,
 			mlx_image_t *img)
 {
@@ -116,16 +124,7 @@ void	draw_line(t_point2d start, t_point2d end, size_t thickness,
 	i = 0;
 	while (i < thickness)
 	{
-		if (i % 2 == 0)
-		{
-			start.x += i;
-			end.x += i;
-		}
-		else
-		{
-			start.x -= i;
-			end.x -= i;
-		}
+		apply_thickness(&start, &end, i);
 		if (!clip_line(img, &start, &end))
 			break ;
 		if (ft_abs(end.y - start.y) < ft_abs(end.x - start.x))

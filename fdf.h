@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/28 12:43:05 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 09:48:01 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,5 +167,6 @@ void		zoom_model(mlx_key_data_t keydata, t_context *c);
 void		reset_model(mlx_key_data_t keydata, t_context *c);
 void		rotate_model(mlx_key_data_t keydata, t_context *c);
 void		move_model(mlx_key_data_t keydata, t_context *c);
+void		apply_thickness(t_point2d *s, t_point2d *e, size_t level);
 
 #endif
