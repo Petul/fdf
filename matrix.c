@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 15:57:24 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/29 15:47:58 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:34:15 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ static void	mat_mul(float m[3][3], t_point3d *p)
 {
 	t_point3d	res;
 
-	res.x = p->x * m[0][0] + p->y * m[0][1] + p->z * m[0][2];
-	res.y = p->x * m[1][0] + p->y * m[1][1] + p->z * m[1][2];
-	res.z = p->x * m[2][0] + p->y * m[2][1] + p->z * m[2][2];
+	res.x = round(p->x * m[0][0] + p->y * m[0][1] + p->z * m[0][2]);
+	res.y = round(p->x * m[1][0] + p->y * m[1][1] + p->z * m[1][2]);
+	res.z = round(p->x * m[2][0] + p->y * m[2][1] + p->z * m[2][2]);
 	p->x = res.x;
 	p->y = res.y;
 	p->z = res.z;

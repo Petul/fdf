@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/16 16:07:09 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/29 16:25:41 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:29:23 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	handle_keypress(mlx_key_data_t keydata, void *context)
 	update_model_thickness(keydata, c);
 	cycle_model_color(keydata, c);
 	reset_model(keydata, c);
-	set_parallel_projection(keydata, c);
+	change_projection(keydata, c);
 	if (keydata.key == MLX_KEY_ESCAPE)
 	{
 		mlx_close_window(c->mlx);

@@ -6,7 +6,7 @@
 /*   By: pleander <pleander@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/27 09:41:07 by pleander          #+#    #+#             */
-/*   Updated: 2024/08/29 16:17:12 by pleander         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:36:51 by pleander         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 # define DEFFAULT_Y_ROT 0
 # define DEFFAULT_Z_ROT 45
 # define N_COLORS 7
-# define MENU_WIDTH 200
-# define MENU_HEIGHT 250
+# define MENU_WIDTH 250
+# define MENU_HEIGHT 280
 # define MENU_X 10
 # define MENU_Y 10
 
@@ -39,6 +39,7 @@
 # define M_COLOR "Rotate color:\nc"
 # define M_HEIGHT "Adjust height:\nz/x"
 # define M_THICKNESS "Adjust thickness:\nq/e"
+# define M_PROJ	"Change projection:\n(i)sometric/p(arallel)"
 # define M_EXIT "Exit: ESC"
 # define M_RESET "Reset: r"
 
@@ -175,6 +176,6 @@ void		reset_model(mlx_key_data_t keydata, t_context *c);
 void		rotate_model(mlx_key_data_t keydata, t_context *c);
 void		move_model(mlx_key_data_t keydata, t_context *c);
 void		apply_thickness(t_point2d *s, t_point2d *e, size_t level);
-void		set_parallel_projection(mlx_key_data_t keydata, t_context *c);
+void		change_projection(mlx_key_data_t keydata, t_context *c);
 
 #endif
