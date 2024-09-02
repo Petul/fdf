@@ -48,6 +48,11 @@ t_color	interpolate_colors(t_color start, t_color end, float d)
 	return (in);
 }
 
+/**
+ * @brief Cretes color variants for the vertices
+ *
+ * @param m 
+ */
 void	paint_vertices(t_model *m)
 {
 	uint32_t	start;

@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx42/include/MLX42/MLX42.h"
 #include "libft/include/memlist.h"
 #include "fdf.h"
 #include <stdlib.h>

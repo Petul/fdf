@@ -26,9 +26,11 @@ static void	parse_color_info(t_ver *ver, char *tok, char *delim)
 	char	*color;
 
 	height = ft_substr(tok, 0, delim - tok);
+	if (!height)
+		error_exit(ERR_STR);
 	memlist_add(height);
 	color = ft_substr(tok, delim - tok + 1, ft_strlen(tok) - (delim - tok));
-	if (!height || !color)
+	if (!color)
 		error_exit(ERR_STR);
 	memlist_add(color);
 	upper(color);
