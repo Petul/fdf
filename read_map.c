@@ -121,6 +121,7 @@ t_model	*read_model(char *path)
 	if (fd < 0)
 		error_exit(strerror(errno));
 	rows = read_rows(fd);
+	close(fd);
 	model = init_model(rows);
 	parse_rows_to_map(model, rows);
 	paint_vertices(model);
