@@ -12,9 +12,7 @@
 
 NAME := fdf
 CC := cc
-#CFLAGS := -Wall -Wextra -Werror
-#CFLAGS := -Wall -Wextra -Werror -g
-CFLAGS := -Wall -Wextra -O2 -g
+CFLAGS := -Wall -Wextra -Werror -O2
 CFILES :=	fdf.c \
 			thickness.c \
 			translation.c \
@@ -51,11 +49,12 @@ all: $(NAME)
 $(NAME): $(LIBMLX42) $(LIBFT) $(OBJECTS)
 	$(CC) $(OBJECTS) $(LIBFT) $(LIBMLX42) -lm -lglfw -o $(NAME)
 
+
 $(LIBFT):
 	make -C libft
 
 $(LIBMLX42):
-	cmake mlx42 -B mlx42/build -D DEBUG=1
+	cmake mlx42 -B mlx42/build
 	make -C mlx42/build -j4
 
 %.o: %.c
