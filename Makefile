@@ -60,6 +60,9 @@ $(LIBMLX42):
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+.PHONY: bonus
+bonus: $(NAME)
+	
 .PHONY: clean
 clean:
 	rm -f $(OBJECTS)
