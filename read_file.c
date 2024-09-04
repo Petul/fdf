@@ -28,7 +28,7 @@ t_list	**read_rows(int fd)
 
 	rows = creserve(1, sizeof(t_list *));
 	buf = get_next_line(fd);
-	if (!buf)
+	if (!buf || !rows)
 		error_exit(ERR_STR);
 	memlist_add(buf);
 	while (buf)
