@@ -64,7 +64,7 @@ static t_model	*init_model(t_list **rows)
 	while (cur)
 	{
 		if (model->columns != calculate_columns(cur->content))
-			error_exit("Map error");
+			error_exit("Map error: incorrect column width");
 		cur = cur->next;
 	}
 	model->vertices = reserve(model->columns * model->rows * sizeof(t_ver));
@@ -121,6 +121,7 @@ t_model	*read_model(char *path)
 	if (fd < 0)
 		error_exit(strerror(errno));
 	rows = read_rows(fd);
+	close(fd);
 	model = init_model(rows);
 	parse_rows_to_map(model, rows);
 	paint_vertices(model);
